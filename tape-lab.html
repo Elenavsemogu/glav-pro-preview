@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Лента — ромб, диагональ, T3</title>
+<style>
+  @property --p{syntax:'<number>';inherits:true;initial-value:0}
+
+  :root{
+    --yellow:#FFE119;
+    --graphite:#444343;
+    --paper:#F7F4EE;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Golos Text',system-ui,sans-serif;background:var(--paper);color:var(--graphite);
+    padding:40px 28px 80px;-webkit-font-smoothing:antialiased}
+  h1{font-size:28px;font-weight:900;letter-spacing:-.03em;margin-bottom:8px}
+  .lead{max-width:72ch;font-size:16px;line-height:1.5;color:#666;margin-bottom:18px}
+  .lead b{color:var(--graphite)}
+  .note{max-width:72ch;font-size:14px;line-height:1.45;color:#888;margin-bottom:22px;
+    padding:12px 14px;background:#fff;border-radius:10px;border:1px solid #ddd6cb}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+  button{height:36px;padding:0 14px;border-radius:8px;border:1.5px solid var(--graphite);
+    background:#fff;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+  button:hover{background:var(--graphite);color:#fff}
+  button.primary{background:var(--yellow);border-color:var(--yellow);color:var(--graphite)}
+  button.primary:hover{background:var(--graphite);color:var(--yellow);border-color:var(--graphite)}
+
+  .stage{
+    position:relative;width:min(960px,100%);aspect-ratio:16/10;overflow:hidden;
+    background:#ccc;border-radius:14px;border:1px solid #ddd6cb;--p:0;
+    /* длина как в T3 — 200% ширины кадра, один кусок */
+    --rw:200%;
+    --tip:0px;
+  }
+  .bw,.color{position:absolute;inset:0;background:var(--img) center/cover no-repeat}
+  .bw{filter:grayscale(1) contrast(1.12) brightness(.94)}
+  .color{z-index:2}
+
+  /*
+    Один целый SVG на длину T3 (200%), высота 100%.
+    Без repeat — концы ромбом, как в файле. Скорость T3.
+  */
+  .ribbon{
+    position:absolute;top:0;bottom:0;z-index:3;pointer-events:none;
+    height:100%;
+    width:var(--rw);
+    left:calc(100% - var(--p) * (100% + var(--rw)));
+    /* один кусок на 200% × 100% — без дублей, на всю высоту */
+    background:url('img/safety-tape.svg') center/100% 100% no-repeat;
+  }
+
+  /* Цвет по диагонали ведущей (левой) жёлтой полосы */
+  .color{
+    clip-path:polygon(
+      calc(100% - var(--p) * (100% + var(--rw)) + var(--tip)) 0%,
+      100% 0%,
+      100% 100%,
+      calc(100% - var(--p) * (100% + var(--rw))) 100%
+    );
+  }
+
+  @keyframes train-rtl{from{--p:0}to{--p:1}}
+  .stage.play{animation:train-rtl 1.15s linear forwards}
+
+  .hint{margin-top:22px;max-width:72ch;font-size:14px;line-height:1.55;color:#555}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <h1>Лента как в файле</h1>
+  <p class="lead">Один кусок, длина как раньше (<b>200%</b>), высота <b>100%</b>, скорость <b>T3</b>.
+    Концы <b>ромбом</b>, цвет по диагонали полосы.</p>
+  <p class="note">Play — один проезд справа налево.</p>
+
+  <div class="actions">
+    <button class="primary" id="play">Play</button>
+    <button id="stop">Сброс</button>
+  </div>
+
+  <div class="stage" id="stage" style="--img:url('img/history/15.jpg')">
+    <span class="bw"></span>
+    <span class="color"></span>
+    <div class="ribbon" aria-hidden="true"></div>
+  </div>
+
+  <p class="hint">Если ок — перенесу на сайт.</p>
+
+<script>
+const stage = document.getElementById('stage');
+
+function layout(){
+  // tip = доля левого края SVG (161.12/653) от ширины ленты
+  const rw = stage.clientWidth * 2; // 200%
+  const tip = (161.12 / 653) * rw;
+  stage.style.setProperty('--tip', tip + 'px');
+}
+
+function play(){
+  stage.classList.remove('play');
+  stage.style.setProperty('--p', '0');
+  void stage.offsetWidth;
+  stage.classList.add('play');
+}
+function stop(){
+  stage.classList.remove('play');
+  stage.style.setProperty('--p', '0');
+}
+
+document.getElementById('play').onclick = play;
+document.getElementById('stop').onclick = stop;
+window.addEventListener('resize', layout);
+layout();
+play();
+</script>
+</body>
+</html>
