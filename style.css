@@ -282,7 +282,7 @@ body::after{
 .award{background:var(--graphite);color:#fff;position:relative;overflow:hidden}
 .award .wrap{position:relative;z-index:2}
 .award__head{display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:center;margin-bottom:28px}
-.award__mark{width:132px;height:auto;flex:none;display:block}
+.award__mark{width:120px;height:auto;flex:none;display:block}
 .award .h2{color:#fff}
 .award .kicker{color:rgba(255,255,255,.45)}
 .award__head p{margin-top:16px;color:rgba(255,255,255,.72);font-size:18px;line-height:1.5;max-width:46ch}
