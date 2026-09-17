@@ -51,7 +51,7 @@ body::after{
 /* Курсив — Fet, без жёлтых «дефисов». */
 .script{font-family:var(--script);text-transform:none;letter-spacing:0;font-weight:400;
   color:var(--graphite);display:block;position:relative;z-index:1}
-.proof .script,.award .script{color:var(--yellow)}
+.hero .script,.proof .script,.award .script{color:var(--yellow)}
 .cta .script{color:var(--graphite)}
 .h1 .script{font-size:.82em;line-height:.92;margin-top:-.12em;margin-left:.08em}
 .h2 .script{font-size:.96em;line-height:1;margin-top:-.08em;margin-left:.06em}
