@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ГлавПро — обучение по охране труда и безопасности | ГлавПро</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;700;900&display=swap&subset=cyrillic,latin" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+  <div class="header__bar">
+    <a href="/"><img src="logo-white.svg" alt="ГлавПро"></a>
+    <nav class="nav">
+      <a href="#dirs">Направления</a>
+      <a href="/tseny-na-obuchenie">Цены</a>
+      <a href="#proof">Лицензии</a>
+      <a href="/learning">Интерактивное обучение</a>
+      <a href="/blog">Блог</a>
+      <a href="/contacts">Контакты</a>
+    </nav>
+    <div class="header-actions">
+      <a href="tel:88005555219" class="header__tel">8 800 5555 219</a>
+      <a href="#cta" class="btn btn--yellow btn--sm">Подать заявку</a>
+      <a href="https://test.glav.pro" class="btn btn--ink btn--sm">Войти</a>
+    </div>
+  </div>
+</header>
+
+<!-- ---------- Hero ---------- -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <h1 class="h1">Обучаем<span class="script">безопасности</span></h1>
+      <p class="lead hero__sub">Охрана труда, пожарная и промышленная безопасность, экология и ещё семь
+        направлений. Дистанционно, по всей России, с лицензией и аккредитацией Минтруда.</p>
+      <div class="hero__cta">
+        <a href="#cta" class="btn btn--yellow">Подать заявку</a>
+        <a href="#dirs" class="btn btn--ink">Подобрать программу</a>
+      </div>
+      <div class="hero__facts">
+        <div class="hero__fact"><b>14 лет</b><span>работаем с 2012 года</span></div>
+        <div class="hero__fact"><b>100 000+</b><span>компаний доверились нам</span></div>
+      </div>
+    </div>
+    <figure class="hero__helmet">
+      <img class="hero__helmet-img" src="img/helmet-3d.png" alt="">
+      <span class="hero__tape" aria-hidden="true"></span>
+    </figure>
+  </div>
+</section>
+
+<!-- ---------- Партнёры ---------- -->
+<section class="partners">
+  <div class="wrap">
+    <div class="kicker">Нам доверяют обучение</div>
+    <div class="partners__row">
+      <img src="img/client1.png" alt="Сибур">
+      <img src="img/client3.png" alt="Норникель">
+      <img src="img/client4.png" alt="Fix Price">
+      <img src="img/client5.png" alt="Роснефть">
+      <img src="img/client2.png" alt="Юг Руси">
+    </div>
+  </div>
+</section>
+
+<!-- ---------- Три обещания ---------- -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="h2">Что вы получаете<span class="script">на самом деле</span></h2>
+      <p class="lead">Не курс и не сертификат сами по себе, а закрытое требование законодательства
+        и спокойствие в день проверки.</p>
+    </div>
+    <div class="promises">
+
+      <a href="#dirs" class="promise">
+        <figure class="shot shot--sweep" style="--img:url('img/history/15.jpg')">
+          <span class="shot__base"></span><span class="shot__color"></span><span class="shot__tape"></span>
+        </figure>
+        <span class="promise__veil"></span>
+        <span class="promise__go">→</span>
+        <div class="promise__body">
+          <div class="h3">Людей допускают к работе</div>
+          <p>Программы под требования к каждой должности — от рабочего до руководителя.</p>
+        </div>
+      </a>
+
+      <a href="#proof" class="promise">
+        <figure class="shot shot--sweep" style="--img:url('img/history/13.jpg')">
+          <span class="shot__base"></span><span class="shot__color"></span><span class="shot__tape"></span>
+        </figure>
+        <span class="promise__veil"></span>
+        <span class="promise__go">→</span>
+        <div class="promise__body">
+          <div class="h3">Проверка проходит спокойно</div>
+          <p>Документы оформлены так, как их ждёт инспекция. Нас самих проверяли — без нарушений.</p>
+        </div>
+      </a>
+
+      <a href="#cta" class="promise">
+        <figure class="shot shot--sweep" style="--img:url('img/history/27.jpg')">
+          <span class="shot__base"></span><span class="shot__color"></span><span class="shot__tape"></span>
+        </figure>
+        <span class="promise__veil"></span>
+        <span class="promise__go">→</span>
+        <div class="promise__body">
+          <div class="h3">Всё делают за вас</div>
+          <p>Подберём программы, соберём группу, напомним о сроках переобучения.</p>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ---------- Направления ---------- -->
+<section class="section" id="dirs">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="h2">Направления<br>обучения</h2>
+      <p class="lead">Выберите роль — оставим только те программы, которые обязательны именно для неё.</p>
+    </div>
+
+    <div class="tabs" role="tablist" data-tabs="dirs">
+      <button class="tab" role="tab" aria-selected="true" data-filter="all">Все направления</button>
+      <button class="tab" role="tab" aria-selected="false" data-filter="boss">Руководителю</button>
+      <button class="tab" role="tab" aria-selected="false" data-filter="ot">Специалисту по охране труда</button>
+      <button class="tab" role="tab" aria-selected="false" data-filter="worker">Рабочим</button>
+    </div>
+
+    <div class="dirs">
+      <a href="/discipline/occup_safety" class="dir" data-role="boss ot worker">
+        <img class="dir__dots" src="img/dis/dots/occup_safety.png" alt="">
+        <h3>Охрана труда</h3><p>Обязательное обучение для всех организаций по постановлению 2464</p>
+      </a>
+      <a href="/discipline/fire_safety" class="dir" data-role="boss ot worker">
+        <img class="dir__dots" src="img/dis/dots/fire_safety.png" alt="">
+        <h3>Пожарная безопасность</h3><p>Без обучения сотрудников не допускают к работе</p>
+      </a>
+      <a href="/discipline/first_aid" class="dir" data-role="ot worker">
+        <img class="dir__dots" src="img/dis/dots/first_aid.png" alt="">
+        <h3>Первая помощь</h3><p>Навык, который проверяют и который однажды понадобится</p>
+      </a>
+      <a href="/discipline/eco" class="dir" data-role="boss ot">
+        <img class="dir__dots" src="img/dis/dots/eco.png" alt="">
+        <h3>Экологическая безопасность</h3><p>Для ответственных за решения при хозяйственной деятельности</p>
+      </a>
+      <a href="/discipline/waste" class="dir" data-role="boss ot">
+        <img class="dir__dots" src="img/dis/dots/waste.png" alt="">
+        <h3>Обращение с опасными отходами</h3><p>Для допущенных к отходам I–IV класса опасности</p>
+      </a>
+      <a href="/discipline/med_waste" class="dir" data-role="ot worker">
+        <img class="dir__dots" src="img/dis/dots/med_waste.png" alt="">
+        <h3>Медицинские отходы</h3><p>Отдельные требования для медицинских организаций</p>
+      </a>
+      <a href="/discipline/civil_defence" class="dir" data-role="boss ot">
+        <img class="dir__dots" src="img/dis/dots/civil_defence.png" alt="">
+        <h3>ГО и защита от ЧС</h3><p>Обязательно для организаций с 2017 года</p>
+      </a>
+      <a href="/discipline/antiterr" class="dir" data-role="boss ot">
+        <img class="dir__dots" src="img/dis/dots/antiterr.png" alt="">
+        <h3>Антитеррор</h3><p>Требования к антитеррористической защищённости объектов</p>
+      </a>
+      <a href="/discipline/procurement" class="dir" data-role="boss">
+        <img class="dir__dots" src="img/dis/dots/procurement.png" alt="">
+        <h3>Закупки 44 ФЗ, 223 ФЗ</h3><p>Для контрактной службы и контрактных управляющих</p>
+      </a>
+      <a href="/discipline/energy_saving" class="dir" data-role="boss ot">
+        <img class="dir__dots" src="img/dis/dots/energy_saving.png" alt="">
+        <h3>Энергосбережение</h3><p>Для учреждений под госпрограммой энергосбережения</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- Отрасли ---------- -->
+<section class="section" id="industries">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="h2">Кого мы учим</h2>
+      <p class="lead">Требования отличаются от отрасли к отрасли. Мы знаем, что спросит инспектор
+        именно у вас.</p>
+    </div>
+
+    <div class="tabs" role="tablist" data-tabs="ind">
+      <button class="tab" role="tab" aria-selected="true" data-ind="0">Производство</button>
+      <button class="tab" role="tab" aria-selected="false" data-ind="1">Строительство</button>
+      <button class="tab" role="tab" aria-selected="false" data-ind="2">Медицина</button>
+      <button class="tab" role="tab" aria-selected="false" data-ind="3">Торговля</button>
+      <button class="tab" role="tab" aria-selected="false" data-ind="4">Образование</button>
+    </div>
+
+    <div class="ind__stage">
+      <figure class="shot shot--sweep" id="indShot" style="--img:url('img/history/14.jpg')">
+        <span class="shot__base"></span><span class="shot__color"></span><span class="shot__tape"></span>
+      </figure>
+      <div class="ind__badge" id="indBadge">Производство</div>
+      <div class="ind__nums">
+        <div class="ind__num"><b>700 000+</b><span>сотрудников наших клиентов обучено</span></div>
+        <div class="ind__num"><b>450 000</b><span>заявок обработано</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- Отзывы ---------- -->
+<section class="section" id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="h2">Мы прислушиваемся<span class="script">к каждому клиенту</span></h2>
+    </div>
+
+    <div class="revs">
+      <article class="rev">
+        <img src="img/quote.png" alt="">
+        <blockquote>Очень легко и просто проходить обучение. Спасибо, что экономите наше время.</blockquote>
+        <footer><b>Каретников Сергей Николаевич</b>Директор, ООО «ЗАПАДГАЗЭНЕРГОИНВЕСТ»</footer>
+      </article>
+      <article class="rev">
+        <img src="img/quote.png" alt="">
+        <blockquote>В августе 2023 обучали сотрудников по 3 направлениям в области охраны труда.
+          Специалисты института на каждом этапе курировали: отвечали на вопросы, помогали.
+          Спасибо за качество предоставляемых услуг!</blockquote>
+        <footer><b>Елена</b>Специалист по охране труда, НАО «Темрюкское ДРСУ»</footer>
+      </article>
+      <article class="rev">
+        <img src="img/quote.png" alt="">
+        <blockquote>Прекрасное обслуживание. Всё чётко и ясно объяснили, рассказали о дополнительных
+          услугах. Очень быстро направили договор для заключения. Большое спасибо за оперативную
+          работу работников института.</blockquote>
+        <footer><b>Наталья</b>Главный инженер, МУП «Озерский водоканал»</footer>
+      </article>
+    </div>
+
+    <div class="revs__more">
+      <a href="/review" class="btn btn--ink">Все отзывы</a>
+      <div class="revs__fact"><b>700 000+</b><span>сотрудников клиентов обучено</span></div>
+      <div class="revs__fact"><b>450 000</b><span>заявок обработано</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- Доказательства ---------- -->
+<section class="section proof" id="proof">
+  <div class="wrap">
+    <div>
+      <h2 class="h2">У нас всё<span class="script">по закону</span></h2>
+      <div class="proof__list">
+        <div class="proof__row"><b>2012</b><span>Лицензия на образовательную деятельность</span></div>
+        <div class="proof__row"><b>2013</b><span>Аккредитация Минтруда на право обучения по охране труда</span></div>
+        <div class="proof__row"><b>2016, 2021</b><span>Плановые проверки Минобразования пройдены без нарушений</span></div>
+        <div class="proof__row"><b>2019</b><span>Проверка Государственной инспекции труда — без нареканий</span></div>
+        <div class="proof__row"><b>2023</b><span>Свидетельство о регистрации собственного ПО</span></div>
+      </div>
+    </div>
+    <div class="proof__docs">
+      <figure class="shot shot--sweep" style="--img:url('img/doc1_full.jpg')">
+        <span class="shot__base"></span><span class="shot__color"></span><span class="shot__tape"></span>
+      </figure>
+      <figure class="shot shot--sweep" style="--img:url('img/doc2_full.jpg')">
+        <span class="shot__base"></span><span class="shot__color"></span><span class="shot__tape"></span>
+      </figure>
+      <figure class="shot shot--sweep" style="--img:url('img/doc3_full.jpg')">
+        <span class="shot__base"></span><span class="shot__color"></span><span class="shot__tape"></span>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- Таймлайн ---------- -->
+<section class="section" id="history">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="h2">Наш путь<span class="script">с 2012 года</span></h2>
+      <div class="tl__nav">
+        <button id="tlPrev" aria-label="Назад">←</button>
+        <button id="tlNext" aria-label="Вперёд">→</button>
+      </div>
+    </div>
+
+    <div class="tl">
+      <div class="tl__track" id="tlTrack"></div>
+      <div class="tl__ruler" id="tlRuler"><div class="tl__thumb" id="tlThumb"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- Премия HR-бренд ---------- -->
+<section class="section award" id="award">
+  <div class="wrap">
+    <div class="award__head">
+      <img class="award__mark" src="img/hrbrand-mark.svg" alt="Премия HR-бренд">
+      <div>
+        <div class="kicker">Премия HR-бренд hh.ru</div>
+        <h2 class="h2">Дважды первое место<span class="script">вкладываемся в своих</span></h2>
+        <p>Золото в категории «Малый бизнес» — 2023 и 2024. Клиентам обещаем порядок,
+          своим людям даём то же: без выгорания и в полный рост.</p>
+      </div>
+    </div>
+
+    <div class="award__proof">
+      <div><b>2023</b><span>Золото. Low-code в HR</span></div>
+      <div><b>2024</b><span>Золото. «ГлавТренер»</span></div>
+    </div>
+    <p class="award__note">Василий Папин — председатель жюри Премии HR-бренд 2025–2026
+      и стратегический советник наблюдательного совета Рейтинга работодателей России.</p>
+
+    <div class="award__links">
+      <a href="https://hrbrand.ru/Jury/" target="_blank" rel="noopener">Состав жюри Премии HR-бренд</a>
+      <a href="https://rating.hh.ru/board" target="_blank" rel="noopener">Наблюдательный совет рейтинга</a>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- Форма ---------- -->
+<section class="section cta" id="cta">
+  <div class="wrap">
+    <div class="cta__left">
+      <h2 class="h2">Расскажем, кого<br>и когда<span class="script">нужно обучить</span></h2>
+      <p>Оставьте телефон — перезвоним, разберём вашу ситуацию и посчитаем стоимость.
+        Консультация бесплатная.</p>
+    </div>
+    <form class="form" onsubmit="return false">
+      <input type="text" placeholder="Как к вам обращаться" required>
+      <input type="tel" placeholder="Телефон" required>
+      <input type="text" placeholder="Компания">
+      <button type="submit" class="btn btn--yellow">Позвоните мне</button>
+      <label>
+        <input type="checkbox" required style="height:auto;width:auto">
+        <span>Согласен с <a href="https://glav.pro/docs/Policy_confidence.pdf">политикой конфиденциальности</a>
+          и <a href="https://glav.pro/docs/Public_ofert.pdf">публичной офертой</a></span>
+      </label>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+
+    <div class="footer-top">
+
+      <div class="f-brand">
+        <div class="f-logo">
+          <img src="logo-white.svg" alt="ГлавПро">
+        </div>
+
+        <p class="f-claim">Бережем сотрудников и компании через обучение</p>
+
+        <div class="f-social">
+          <span>Мы в соцсетях</span>
+          <a href="https://vk.com/glavpro1" aria-label="ВКонтакте">
+            <svg viewBox="0 0 24 24"><path d="M21.54 7.1c.15-.5 0-.87-.72-.87h-2.37c-.6 0-.88.32-1.03.67 0 0-1.2 2.93-2.9 4.83-.55.55-.8.72-1.1.72-.15 0-.37-.17-.37-.67V7.1c0-.6-.17-.87-.67-.87H9.14c-.37 0-.6.28-.6.55 0 .57.87.7.95 2.32v3.5c0 .77-.14.9-.44.9-.8 0-2.76-2.95-3.92-6.33C4.9 6.5 4.67 6.23 4.06 6.23H1.7c-.68 0-.82.32-.82.67 0 .63.8 3.76 3.72 7.9C6.54 17.9 9.2 19.22 11.6 19.22c1.45 0 1.63-.33 1.63-.9v-2.12c0-.68.14-.82.62-.82.35 0 .95.18 2.35 1.52 1.6 1.6 1.87 2.32 2.77 2.32h2.37c.68 0 1.02-.33.82-.99-.21-.66-.99-1.61-2.02-2.74-.56-.66-1.39-1.37-1.64-1.72-.35-.46-.25-.66 0-1.06 0 0 2.87-4.04 3.17-5.41z"/></svg>
+          </a>
+        </div>
+
+        <div class="f-actions">
+          <a href="/request" class="f-btn f-btn-primary">Подать заявку</a>
+          <a href="https://test.glav.pro" class="f-btn f-btn-ghost">Войти</a>
+        </div>
+
+        <div class="f-contacts">
+          <div class="f-head">Контакты</div>
+          <a href="tel:88005555219" class="f-phone">8-800-5555-219</a>
+          <p class="f-note">Звонок бесплатный, доб. 2759</p>
+          <a href="mailto:servis@glav.pro" class="f-mail">servis@glav.pro</a>
+          <p class="f-addr">656031, Алтайский край, Барнаул, пр-кт Строителей, д. 45, офис 259</p>
+        </div>
+      </div>
+
+      <div class="f-col">
+        <div class="f-head">Направления</div>
+        <ul>
+          <li><a href="/discipline/occup_safety">Охрана труда</a></li>
+          <li><a href="/discipline/fire_safety">Пожарная безопасность</a></li>
+          <li><a href="/discipline/first_aid">Первая помощь</a></li>
+          <li><a href="/discipline/eco">Экологическая безопасность</a></li>
+          <li><a href="/discipline/waste">Обращение с опасными отходами</a></li>
+          <li><a href="/discipline/med_waste">Медицинские отходы</a></li>
+          <li><a href="/discipline/civil_defence">ГО и защита от ЧС</a></li>
+          <li><a href="/discipline/antiterr">Антитеррор</a></li>
+          <li><a href="/discipline/procurement">Закупки 44 ФЗ, 223 ФЗ</a></li>
+          <li><a href="/discipline/energy_saving">Энергосбережение</a></li>
+        </ul>
+      </div>
+
+      <div class="f-col">
+        <div class="f-head">Компания</div>
+        <ul>
+          <li><a href="/">Главная</a></li>
+          <li><a href="/about">О компании</a></li>
+          <li><a href="/license">Лицензии</a></li>
+          <li><a href="/disciplines">Направления</a></li>
+          <li><a href="/tseny-na-obuchenie">Цены</a></li>
+          <li><a href="/learning">Интерактивное обучение</a></li>
+          <li><a href="/blog">Блог</a></li>
+          <li><a href="/career">Карьера</a></li>
+          <li><a href="/review">Отзывы</a></li>
+          <li><a href="/dokumentacia-po">Документация</a></li>
+          <li><a href="/contacts">Контакты</a></li>
+        </ul>
+      </div>
+
+      <div class="f-col">
+        <div class="f-head">Сведения об образовательной организации</div>
+        <ul>
+          <li><a href="/sveden/common">Основные сведения</a></li>
+          <li><a href="/sveden/struct">Структура и органы управления</a></li>
+          <li><a href="/sveden/document">Документы</a></li>
+          <li><a href="/sveden/education">Образование</a></li>
+          <li><a href="/sveden/employees">Руководство и педагогический состав</a></li>
+          <li><a href="/sveden/objects">Материально-техническое обеспечение</a></li>
+          <li><a href="/sveden/catering">Организация питания</a></li>
+          <li><a href="/sveden/grants">Стипендии и поддержка</a></li>
+          <li><a href="/sveden/paid-edu">Платные образовательные услуги</a></li>
+          <li><a href="/sveden/budget">Финансово-хозяйственная деятельность</a></li>
+          <li><a href="/sveden/vacant">Вакантные места</a></li>
+          <li><a href="/sveden/ovz">Доступная среда</a></li>
+          <li><a href="/sveden/inter">Международное сотрудничество</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="f-legal">
+      <div class="f-head">Правовая информация</div>
+      <ul class="f-legal-list">
+        <li><a href="https://glav.pro/docs/Public_ofert.pdf">Публичная оферта</a></li>
+        <li><a href="https://glav.pro/docs/Policy_confidence.pdf">Политика конфиденциальности</a></li>
+        <li><a href="https://glav.pro/docs/Policy_cookie.pdf">Политика обработки файлов cookie</a></li>
+        <li><a href="https://glav.pro/docs/User_conversion.pdf">Пользовательское соглашение</a></li>
+        <li><a href="https://glav.pro/docs/AGREE_PD.pdf">Согласие на обработку персональных данных</a></li>
+        <li><a href="https://glav.pro/docs/Agree_references.pdf">Согласие на получение рекламных рассылок</a></li>
+        <li><a href="https://glav.pro/docs/Polozhenie_EDO.pdf">Положение об электронном документообороте</a></li>
+        <li><a href="https://glav.pro/docs/Agree_PEP.pdf">Согласие на использование простой электронной подписи</a></li>
+        <li><a href="https://glav.pro/docs/Dogovor_prisoedineniya_instruktor.pdf">Договор присоединения на оказание услуг по проведению практических занятий</a></li>
+      </ul>
+    </div>
+
+    <div class="f-bottom">
+      <p class="f-entity">Частное учреждение дополнительного профессионального образования «Федеральный институт повышения квалификации»</p>
+      <p class="f-inn">ИНН 2225995694</p>
+      <p>© 2012—2026 ГлавПро</p>
+    </div>
+
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# Git
+.DS_Store
+*.log
+.context.md
+_worklog.md
+interview-papin.md
+kotler-shpargalka.md
+audit.md
+redesign-main.md
+design-references.md
+demo-hh.html
+demo-hh.png
+fonts.html
+footer-preview.png
+footer-preview-mobile.png
+postcard/
+img/hrbrand-mark-src.png
+img/hrbrand-mark.png

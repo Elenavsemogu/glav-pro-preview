@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ГлавПро — подвал, вариант 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Roboto',sans-serif;background:#f4f4f4}
+  .page-stub{height:120px;display:flex;align-items:center;justify-content:center;color:#9a9a9a;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+
+  /* ---------- Подвал ---------- */
+  .footer{
+    position:relative;
+    background:linear-gradient(180deg,#444343 0%,#2b2a2a 100%);
+    color:#fff;
+    overflow:hidden;
+  }
+  .footer::before{
+    content:'';
+    position:absolute;top:0;left:0;right:0;height:6px;
+    background:repeating-linear-gradient(45deg,#FFE119 0 14px,#161616 14px 28px);
+  }
+  .footer::after{
+    content:'';
+    position:absolute;left:-10%;bottom:-40%;width:70%;height:90%;
+    background:radial-gradient(ellipse at center,rgba(255,225,25,.09) 0%,rgba(255,225,25,0) 65%);
+    pointer-events:none;
+  }
+  .footer-inner{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:72px 40px 28px}
+
+  .footer-top{
+    display:grid;
+    grid-template-columns:minmax(0,1.45fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.15fr);
+    gap:56px;
+  }
+  .footer-top>*{min-width:0}
+
+  /* --- Брендовая колонка --- */
+  .f-logo img{height:74px;width:auto;display:block}
+  .f-claim{
+    margin-top:32px;
+    font-size:clamp(26px,2.7vw,40px);
+    font-weight:900;
+    line-height:1.06;
+    letter-spacing:-.02em;
+    max-width:9em;
+  }
+  .f-social{
+    display:inline-flex;align-items:center;gap:14px;
+    margin-top:34px;padding:8px 10px 8px 22px;
+    border:1px solid rgba(255,255,255,.22);border-radius:999px;
+  }
+  .f-social span{
+    font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:rgba(255,255,255,.55);
+  }
+  .f-social a{
+    display:grid;place-items:center;width:36px;height:36px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.22);transition:.2s;
+  }
+  .f-social svg{width:18px;height:18px;fill:#fff;transition:.2s}
+  .f-social a:hover{background:#FFE119;border-color:#FFE119}
+  .f-social a:hover svg{fill:#161616}
+
+  .f-actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .f-btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    height:48px;padding:0 26px;border-radius:6px;
+    font-size:15px;font-weight:700;text-decoration:none;transition:.2s;white-space:nowrap;
+  }
+  .f-btn-primary{background:#FFE119;color:#161616}
+  .f-btn-primary:hover{background:#fff}
+  .f-btn-ghost{border:1px solid rgba(255,255,255,.3);color:#fff}
+  .f-btn-ghost:hover{border-color:#FFE119;color:#FFE119}
+
+  /* --- Колонки ссылок --- */
+  .f-head{
+    font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:rgba(255,255,255,.45);margin-bottom:22px;
+  }
+  .f-col ul{list-style:none}
+  .f-col li+li{margin-top:11px}
+  .f-col a{
+    color:rgba(255,255,255,.78);text-decoration:none;font-size:15px;line-height:1.35;
+    transition:color .2s;
+  }
+  .f-col a:hover{color:#FFE119}
+
+  /* --- Контакты --- */
+  .f-contacts{margin-top:44px}
+  .f-phone{font-size:24px;font-weight:700;color:#fff;text-decoration:none;letter-spacing:-.01em}
+  .f-phone:hover{color:#FFE119}
+  .f-note{font-size:13px;color:rgba(255,255,255,.45);margin-top:6px}
+  .f-mail{display:inline-block;margin-top:18px;font-size:16px;color:rgba(255,255,255,.85);text-decoration:none}
+  .f-mail:hover{color:#FFE119}
+  .f-addr{margin-top:18px;font-size:14px;line-height:1.55;color:rgba(255,255,255,.6);max-width:17em}
+
+  /* --- Правовая информация --- */
+  .f-legal{
+    margin-top:64px;padding-top:34px;
+    border-top:1px solid rgba(255,255,255,.12);
+  }
+  .f-legal-list{
+    columns:3;column-gap:56px;list-style:none;margin-top:20px;
+  }
+  .f-legal-list li{margin-bottom:11px;break-inside:avoid}
+  .f-legal-list a{
+    color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;line-height:1.4;
+    transition:color .2s;
+  }
+  .f-legal-list a:hover{color:#FFE119}
+
+  /* --- Нижняя строка --- */
+  .f-bottom{
+    margin-top:40px;padding-top:24px;
+    border-top:1px solid rgba(255,255,255,.12);
+    display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap;
+  }
+  .f-bottom p{font-size:12px;line-height:1.6;color:rgba(255,255,255,.4)}
+  .f-entity{max-width:62ch}
+  .f-inn{white-space:nowrap}
+
+  @media(max-width:1100px){
+    .footer-top{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px 40px}
+    .f-brand{grid-column:1/-1}
+    .f-claim{max-width:14em}
+  }
+  @media(max-width:700px){
+    .footer-inner{padding:56px 20px 24px}
+    .footer-top{grid-template-columns:minmax(0,1fr);gap:40px}
+    .f-brand{grid-column:auto}
+    .f-legal-list{columns:1}
+    .f-actions{gap:10px}
+    .f-actions .f-btn{flex:1 1 0;min-width:0;padding:0 14px}
+    .f-bottom{flex-direction:column;gap:10px}
+  }
+</style>
+</head>
+<body>
+
+<div class="page-stub">Здесь заканчивается страница</div>
+
+<footer class="footer">
+  <div class="footer-inner">
+
+    <div class="footer-top">
+
+      <div class="f-brand">
+        <div class="f-logo">
+          <img src="logo-white.svg" alt="ГлавПро">
+        </div>
+
+        <p class="f-claim">Бережем сотрудников и компании через обучение</p>
+
+        <div class="f-social">
+          <span>Мы в соцсетях</span>
+          <a href="https://vk.com/glavpro1" aria-label="ВКонтакте">
+            <svg viewBox="0 0 24 24"><path d="M21.54 7.1c.15-.5 0-.87-.72-.87h-2.37c-.6 0-.88.32-1.03.67 0 0-1.2 2.93-2.9 4.83-.55.55-.8.72-1.1.72-.15 0-.37-.17-.37-.67V7.1c0-.6-.17-.87-.67-.87H9.14c-.37 0-.6.28-.6.55 0 .57.87.7.95 2.32v3.5c0 .77-.14.9-.44.9-.8 0-2.76-2.95-3.92-6.33C4.9 6.5 4.67 6.23 4.06 6.23H1.7c-.68 0-.82.32-.82.67 0 .63.8 3.76 3.72 7.9C6.54 17.9 9.2 19.22 11.6 19.22c1.45 0 1.63-.33 1.63-.9v-2.12c0-.68.14-.82.62-.82.35 0 .95.18 2.35 1.52 1.6 1.6 1.87 2.32 2.77 2.32h2.37c.68 0 1.02-.33.82-.99-.21-.66-.99-1.61-2.02-2.74-.56-.66-1.39-1.37-1.64-1.72-.35-.46-.25-.66 0-1.06 0 0 2.87-4.04 3.17-5.41z"/></svg>
+          </a>
+        </div>
+
+        <div class="f-actions">
+          <a href="/request" class="f-btn f-btn-primary">Подать заявку</a>
+          <a href="https://test.glav.pro" class="f-btn f-btn-ghost">Войти</a>
+        </div>
+
+        <div class="f-contacts">
+          <div class="f-head">Контакты</div>
+          <a href="tel:88005555219" class="f-phone">8-800-5555-219</a>
+          <p class="f-note">Звонок бесплатный, доб. 2759</p>
+          <a href="mailto:servis@glav.pro" class="f-mail">servis@glav.pro</a>
+          <p class="f-addr">656031, Алтайский край, Барнаул, пр-кт Строителей, д. 45, офис 259</p>
+        </div>
+      </div>
+
+      <div class="f-col">
+        <div class="f-head">Направления</div>
+        <ul>
+          <li><a href="/discipline/occup_safety">Охрана труда</a></li>
+          <li><a href="/discipline/fire_safety">Пожарная безопасность</a></li>
+          <li><a href="/discipline/first_aid">Первая помощь</a></li>
+          <li><a href="/discipline/eco">Экологическая безопасность</a></li>
+          <li><a href="/discipline/waste">Обращение с опасными отходами</a></li>
+          <li><a href="/discipline/med_waste">Медицинские отходы</a></li>
+          <li><a href="/discipline/civil_defence">ГО и защита от ЧС</a></li>
+          <li><a href="/discipline/antiterr">Антитеррор</a></li>
+          <li><a href="/discipline/procurement">Закупки 44 ФЗ, 223 ФЗ</a></li>
+          <li><a href="/discipline/energy_saving">Энергосбережение</a></li>
+        </ul>
+      </div>
+
+      <div class="f-col">
+        <div class="f-head">Компания</div>
+        <ul>
+          <li><a href="/">Главная</a></li>
+          <li><a href="/about">О компании</a></li>
+          <li><a href="/license">Лицензии</a></li>
+          <li><a href="/disciplines">Направления</a></li>
+          <li><a href="/tseny-na-obuchenie">Цены</a></li>
+          <li><a href="/learning">Интерактивное обучение</a></li>
+          <li><a href="/blog">Блог</a></li>
+          <li><a href="/career">Карьера</a></li>
+          <li><a href="/review">Отзывы</a></li>
+          <li><a href="/dokumentacia-po">Документация</a></li>
+          <li><a href="/contacts">Контакты</a></li>
+        </ul>
+      </div>
+
+      <div class="f-col">
+        <div class="f-head">Сведения об образовательной организации</div>
+        <ul>
+          <li><a href="/sveden/common">Основные сведения</a></li>
+          <li><a href="/sveden/struct">Структура и органы управления</a></li>
+          <li><a href="/sveden/document">Документы</a></li>
+          <li><a href="/sveden/education">Образование</a></li>
+          <li><a href="/sveden/employees">Руководство и педагогический состав</a></li>
+          <li><a href="/sveden/objects">Материально-техническое обеспечение</a></li>
+          <li><a href="/sveden/catering">Организация питания</a></li>
+          <li><a href="/sveden/grants">Стипендии и поддержка</a></li>
+          <li><a href="/sveden/paid-edu">Платные образовательные услуги</a></li>
+          <li><a href="/sveden/budget">Финансово-хозяйственная деятельность</a></li>
+          <li><a href="/sveden/vacant">Вакантные места</a></li>
+          <li><a href="/sveden/ovz">Доступная среда</a></li>
+          <li><a href="/sveden/inter">Международное сотрудничество</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="f-legal">
+      <div class="f-head">Правовая информация</div>
+      <ul class="f-legal-list">
+        <li><a href="https://glav.pro/docs/Public_ofert.pdf">Публичная оферта</a></li>
+        <li><a href="https://glav.pro/docs/Policy_confidence.pdf">Политика конфиденциальности</a></li>
+        <li><a href="https://glav.pro/docs/Policy_cookie.pdf">Политика обработки файлов cookie</a></li>
+        <li><a href="https://glav.pro/docs/User_conversion.pdf">Пользовательское соглашение</a></li>
+        <li><a href="https://glav.pro/docs/AGREE_PD.pdf">Согласие на обработку персональных данных</a></li>
+        <li><a href="https://glav.pro/docs/Agree_references.pdf">Согласие на получение рекламных рассылок</a></li>
+        <li><a href="https://glav.pro/docs/Polozhenie_EDO.pdf">Положение об электронном документообороте</a></li>
+        <li><a href="https://glav.pro/docs/Agree_PEP.pdf">Согласие на использование простой электронной подписи</a></li>
+        <li><a href="https://glav.pro/docs/Dogovor_prisoedineniya_instruktor.pdf">Договор присоединения на оказание услуг по проведению практических занятий</a></li>
+      </ul>
+    </div>
+
+    <div class="f-bottom">
+      <p class="f-entity">Частное учреждение дополнительного профессионального образования «Федеральный институт повышения квалификации»</p>
+      <p class="f-inn">ИНН 2225995694</p>
+      <p>© 2012—2026 ГлавПро</p>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>
