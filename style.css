@@ -286,6 +286,7 @@ body::after{
 .award__hh{width:64px;height:64px;display:block}
 .award__intro{max-width:52ch;margin-bottom:36px}
 .award .h2{color:#fff}
+.award__hh-name{text-transform:none;letter-spacing:-.01em;font-weight:800}
 .award__intro p{margin-top:18px;color:rgba(255,255,255,.72);font-size:18px;line-height:1.5}
 .award__shots{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px}
 .award__shots .shot{aspect-ratio:4/3;border-radius:12px}
