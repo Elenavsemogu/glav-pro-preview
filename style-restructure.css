@@ -102,10 +102,12 @@
   .solve__body{padding:22px 44% 22px 18px;min-height:170px}
 }
 
-/* Hero: curr всегда целиком снизу; next открывается клипом; лента одна.
-   Рывок был из‑за телепорта ленты p:1→0 — прячем ленту на кадр смены. */
+/* Hero: curr снизу целиком; next открывается клипом по последней полосе.
+   Лента — ДВЕ маски: на «было» силуэт curr, на «стало» силуэт next.
+   На сбросе p лента скрыта (tape-off), чтобы не было телепорта. */
 .hero__safety{max-width:480px;aspect-ratio:1;position:relative;overflow:hidden;display:block;
-  --mask:url('img/safety/cabinet.webp');
+  --mask-curr:url('img/safety/extinguisher.webp');
+  --mask-next:url('img/safety/cabinet.webp');
   --split-top:calc(100% - var(--p) * (100% + var(--rw)) + var(--rw) + var(--tip));
   --split-bot:calc(100% - var(--p) * (100% + var(--rw)) + var(--rw));
   transform:translateZ(0)}
@@ -122,12 +124,17 @@
     var(--split-bot) 100%
   )}
 .hero__safety .hero__tape-clip{
-  -webkit-mask-image:var(--mask);mask-image:var(--mask);
   -webkit-mask-size:contain;mask-size:contain;
   -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
   -webkit-mask-position:center;mask-position:center;
   -webkit-mask-source-type:alpha;mask-mode:alpha;
-  opacity:1;visibility:visible;transition:none}
+  opacity:1;visibility:visible}
+.hero__safety .hero__tape-clip--curr{
+  -webkit-mask-image:var(--mask-curr);mask-image:var(--mask-curr);
+  clip-path:polygon(0% 0%,var(--split-top) 0%,var(--split-bot) 100%,0% 100%)}
+.hero__safety .hero__tape-clip--next{
+  -webkit-mask-image:var(--mask-next);mask-image:var(--mask-next);
+  clip-path:polygon(var(--split-top) 0%,100% 0%,100% 100%,var(--split-bot) 100%)}
 .hero__safety.tape-off .hero__tape-clip{opacity:0;visibility:hidden}
 .hero__safety.sweeping{animation:none!important}
 @media(prefers-reduced-motion:reduce){
