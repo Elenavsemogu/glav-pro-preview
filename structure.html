@@ -3,140 +3,315 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ГлавПро — схема новой главной: зачем каждый блок</title>
+<title>Главная glav.pro — тексты по блокам и логика</title>
 <meta name="robots" content="noindex">
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;700;900&display=swap&subset=cyrillic,latin" rel="stylesheet">
 <style>
-:root{--ink:#1a1a1a;--graphite:#444343;--yellow:#FFE119;--paper:#f4f1ea;--muted:#6b6963;--line:#ddd8cc}
+:root{--ink:#1a1a1a;--graphite:#444343;--yellow:#FFE119;--paper:#f4f1ea;--muted:#6b6963;--line:#ddd8cc;--note:#fff6c2}
 *{box-sizing:border-box;margin:0}
-body{font-family:'Golos Text',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5}
-.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
-header{padding:64px 0 28px}
-h1{font-size:clamp(34px,5vw,60px);font-weight:900;line-height:.95;letter-spacing:-.03em;text-transform:uppercase}
-.sub{margin-top:16px;font-size:18px;color:var(--muted);max-width:60ch}
-.path{margin:34px 0 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-weight:700;font-size:14px}
-.path span{padding:8px 14px;border-radius:999px;background:var(--graphite);color:#fff}
-.path i{color:var(--muted);font-style:normal}
-.path .y{background:var(--yellow);color:var(--ink)}
-.block{display:grid;grid-template-columns:120px 1fr;gap:28px;padding:36px 0;border-top:1px solid var(--line)}
-.num{font-size:64px;font-weight:900;line-height:.8;letter-spacing:-.05em;color:var(--graphite)}
-.num small{display:block;margin-top:10px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700}
-h2{font-size:clamp(22px,2.6vw,30px);font-weight:900;line-height:1.05;letter-spacing:-.02em;text-transform:uppercase}
-.goal{margin:10px 0 18px;padding:12px 16px;background:var(--yellow);border-radius:10px;font-weight:700;display:inline-block}
-dl{display:grid;grid-template-columns:200px 1fr;gap:10px 20px;font-size:15px}
-dt{font-weight:700;color:var(--graphite)}
-dd{color:#3c3a37}
-dd b{color:var(--ink)}
-.arrow{margin-top:18px;font-size:14px;color:var(--muted)}
-.arrow b{color:var(--ink)}
-.dark{background:var(--graphite);color:#fff;border-radius:16px;padding:28px 32px;margin:8px 0 48px}
-.dark h2{color:var(--yellow)}
-.dark dd,.dark dt{color:rgba(255,255,255,.8)}
-.dark dd b{color:#fff}
-footer{padding:40px 0 64px;font-size:14px;color:var(--muted)}
-@media(max-width:720px){.block{grid-template-columns:1fr;gap:12px}dl{grid-template-columns:1fr;gap:2px 0}dd{margin-bottom:10px}}
+body{font-family:'Golos Text',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.5;font-size:15px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+header{padding:56px 0 24px}
+h1{font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1;letter-spacing:-.03em;text-transform:uppercase}
+.legend{margin-top:18px;display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:6px;border:1px solid var(--line)}
+.legend .a{background:#fff}.legend .b{background:var(--note)}
+.block{padding:36px 0;border-top:1px solid var(--line)}
+.block-head{display:flex;align-items:baseline;gap:14px;margin-bottom:18px}
+.block-head .n{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.block-head .goal{font-size:15px;font-weight:700}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px;align-items:start}
+.site{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.site .tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;font-weight:700}
+.site .h{font-weight:900;font-size:20px;line-height:1.1;letter-spacing:-.02em}
+.site .h small{display:block;font-weight:400;font-size:15px;color:var(--muted);margin-top:4px}
+.site p{margin-top:8px}
+.site .btn{display:inline-block;margin-top:8px;padding:8px 14px;border-radius:999px;background:var(--graphite);color:#fff;font-weight:700;font-size:13px}
+.site .btn.y{background:var(--yellow);color:var(--ink)}
+.site .facts{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px}
+.site .facts b{display:block;font-size:20px;font-weight:900}
+.site .facts span{font-size:12px;color:var(--muted)}
+.site .big{font-size:64px;font-weight:700;line-height:.9;letter-spacing:-.04em}
+.site ul{margin:8px 0 0 18px}
+.site .logos{color:var(--muted);font-size:13px;margin-top:6px}
+.site .cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.site .card{border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.site .card b{display:block;font-size:14px;margin-bottom:4px}
+.site .card p{margin:0;font-size:13px;color:#3c3a37}
+.site .card.y{background:var(--yellow);border-color:var(--yellow)}
+.site .dark{background:var(--graphite);color:#fff}
+.site .dark .tag,.site .dark p{color:rgba(255,255,255,.75)}
+.note{background:var(--note);border-radius:10px;padding:16px 18px}
+.note .tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7a6a00;margin-bottom:8px;font-weight:700}
+.note p+p{margin-top:8px}
+.next{margin-top:6px;padding:12px 18px;font-size:14px;color:var(--muted)}
+.next b{color:var(--ink)}
+footer{padding:24px 0 64px;font-size:13px;color:var(--muted)}
+@media(max-width:760px){.row{grid-template-columns:1fr}.site .cards{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
-  <h1>Как устроена<br>новая главная</h1>
-  <p class="sub">Каждый экран делает одну работу и передаёт человека следующему. Никаких блоков «для красоты» — если элемент не двигает к звонку, его нет.</p>
-  <div class="path">
-    <span>Здравствуйте, мы хорошие</span><i>→</i>
-    <span>Нам можно верить</span><i>→</i>
-    <span>Ваша проблема — вот она</span><i>→</i>
-    <span>Мы её решаем просто</span><i>→</i>
-    <span class="y">Оставьте номер</span>
+  <h1>Главная glav.pro<br>тексты по блокам и что они делают</h1>
+  <div class="legend">
+    <span><i class="a"></i>Текст с сайта, как есть</span>
+    <span><i class="b"></i>Комментарий: зачем блок и куда ведёт</span>
   </div>
 </header>
 
+<!-- ===== 1 ===== -->
 <section class="block">
-  <div class="num">1<small>Оффер</small></div>
-  <div>
-    <h2>Обучаем безопасности</h2>
-    <div class="goal">Цель: за 5 секунд понять, что продаём и какого мы масштаба</div>
-    <dl>
-      <dt>Заголовок + каска с лентой</dt><dd>«Вау» на входе. Лента снимает чёрно-белое и открывает цвет — мотив, который потом повторяется на каждой картинке сайта. Человек запоминает приём и бренд.</dd>
-      <dt>Подзаголовок</dt><dd><b>250+ курсов по подписке</b> и «документы, которые пройдут любые проверки» — сразу главный оффер, а не перечень направлений.</dd>
-      <dt>Три факта</dt><dd>250+ курсов · 100 000+ компаний · 14 лет. Масштаб без лишних слов.</dd>
-      <dt>Одна кнопка «Как это работает ↘»</dt><dd>Убрали вторую кнопку: человек ещё не готов звонить, ему надо дочитать. Стрелка вниз ведёт по сценарию, а не сбивает с него.</dd>
-      <dt>Огромное «116 ₽»</dt><dd>Отдельная ударная строка под hero. Цифра гигантская специально: цена одного обучения ломает ожидание «дорого» и заставляет листать дальше. Жёлтая лента под ней — тот же мотив безопасности.</dd>
-    </dl>
-    <p class="arrow">Ведёт к: <b>«ок, интересно и недорого — а кто вы такие?»</b></p>
+  <div class="block-head"><span class="n">Блок 1</span><span class="goal">Первый экран. Задача: за пять секунд ясно, что продаём и что мы не маленькие</span></div>
+
+  <div class="row">
+    <div class="site">
+      <div class="tag">Заголовок</div>
+      <div class="h">Обучаем безопасности</div>
+      <p>250+ курсов по охране труда, пожарной и промышленной безопасности — в одной подписке. Онлайн, по всей России. С документами, которые пройдут любые проверки.</p>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Первое, что читает человек. В одном абзаце — что это (обучение), сколько (250+ курсов), как (подписка, онлайн) и главный страх, который мы закрываем (проверки).</p>
+      <p>Направления сюда не выносим: они ниже, бегущей строкой.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="site">
+      <div class="tag">Кнопка</div>
+      <span class="btn">Как это работает ↘</span>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Одна кнопка, не две. Человек ещё не готов оставлять телефон — он только зашёл. Стрелка ведёт вниз по странице, к блоку 3. Телефон попросим позже, когда он поймёт, что мы решаем его задачу.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="site">
+      <div class="tag">Три цифры под кнопкой</div>
+      <div class="facts">
+        <div><b>250+</b><span>курсов в подписке</span></div>
+        <div><b>100 000+</b><span>компаний</span></div>
+        <div><b>14 лет</b><span>с 2012 года</span></div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Масштаб без слов. Три числа читаются быстрее любого абзаца про «лидера рынка».</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="site">
+      <div class="tag">Отдельная строка под первым экраном</div>
+      <div class="big">116 ₽</div>
+      <p><small style="text-transform:uppercase;letter-spacing:.1em;font-size:11px;color:var(--muted)">Одно обучение</small><br>Во столько обошлось одно обучение нашим клиентам в 2025 году</p>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Цифра огромная специально. Человек ждёт, что обучение — это дорого. 116 рублей ломают ожидание и заставляют листать дальше: «как так?»</p>
+      <p>Это средняя стоимость одного обучения у клиентов на подписке. Цифру важно подтвердить расчётом, чтобы её можно было защитить в разговоре.</p>
+    </div>
+  </div>
+
+  <p class="next">Человек уходит из блока с мыслью: <b>«понятно, что продают, недорого — а кто это вообще?»</b></p>
+</section>
+
+<!-- ===== 2 ===== -->
+<section class="block">
+  <div class="block-head"><span class="n">Блок 2</span><span class="goal">Доверие. Задача: снять вопрос «а не однодневка ли вы и настоящие ли у вас документы»</span></div>
+
+  <div class="row">
+    <div class="site dark">
+      <div class="tag">Заголовок блока</div>
+      <div class="h">Нам доверяют <small>И мы это заслужили</small></div>
+      <p>Сто+ человек в команде, своя платформа, своя комиссия.</p>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Блок на тёмном фоне — смена тона с лёгкого оффера на серьёзный разговор. Подзаголовок отвечает на «кто вы»: не перепродаём чужие курсы, есть люди, платформа и комиссия.</p>
+      <p>«Сто+ человек» стоит здесь один раз и в цифрах ниже не повторяется.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="site">
+      <div class="tag">Логотипы клиентов</div>
+      <div class="tag" style="margin-top:0">Мы обучили</div>
+      <div class="logos">СИБУР · Норникель · Fix Price · Роснефть · Юг Руси</div>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Самый быстрый аргумент на странице. Если эти компании доверили обучение нам — вопрос «а можно ли вам» отпадает. Логотипы белые, без цвета, чтобы не спорили с жёлтым.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="site">
+      <div class="tag">Три цифры</div>
+      <div class="facts">
+        <div><b>100 000+</b><span>компаний</span></div>
+        <div><b>700 000+</b><span>обучили сотрудников</span></div>
+        <div><b>450 000</b><span>заявок обработали</span></div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Масштаб, который не подделать. 100 000+ компаний повторяется с первого экрана намеренно — это главная цифра, она должна запомниться.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="site">
+      <div class="tag">Большая карточка с логотипами премии и hh.ru</div>
+      <div class="cards">
+        <div class="card y"><b>2023 и 2024 · Золото Премии HR-бренд hh.ru</b><p>Два раза подряд — первое место.</p></div>
+      </div>
+      <div class="tag" style="margin-top:12px">Рядом, две малые карточки — «Нас знают на рынке»</div>
+      <div class="cards">
+        <div class="card"><b>2025 · Жюри премии</b><p>Директор ГлавПро Василий Папин — член жюри Премии HR-бренд.</p><p>Ссылка: Состав жюри</p></div>
+        <div class="card"><b>2026 · Совет рейтинга работодателей</b><p>Рядом с X5, VK и Альфа-Банком.</p><p>Ссылка: Наблюдательный совет</p></div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Премия — главное доказательство, что мы публичная компания с именем, а не учебный центр из подвала. Поэтому карточка самая крупная, с обоими логотипами.</p>
+      <p>Жюри и совет рейтинга — следующий уровень: нас не только награждают, нас зовут оценивать других. Ссылки ведут на hh — можно проверить.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="site">
+      <div class="tag">Полоса внизу блока, с миниатюрами документов</div>
+      <div class="tag" style="margin-top:0">Лицензии и проверки</div>
+      <p>Лицензия на образование с 2012 года, аккредитация Минтруда. Мы успешно прошли проверки Минобразования, Минюста и трудовой инспекции.</p>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Стоит не в центре, а полосой внизу — как само собой разумеющееся. Лицензия у образовательной организации обязана быть, гордиться ею странно. Но человек должен её увидеть, поэтому документы показаны.</p>
+    </div>
+  </div>
+
+  <p class="next">Человек уходит из блока с мыслью: <b>«серьёзные, проверенные. А что конкретно вы для меня сделаете?»</b></p>
+</section>
+
+<!-- ===== 3 ===== -->
+<section class="block">
+  <div class="block-head"><span class="n">Блок 3</span><span class="goal">Проблема и решение. Задача: специалист по охране труда узнаёт свою боль — и сразу видит, что мы её закрываем</span></div>
+
+  <div class="row">
+    <div class="site">
+      <div class="tag">Заголовок блока</div>
+      <div class="h">Соблюсти закон сложно. <small>а с нами — просто</small></div>
+      <p>Практику теперь нельзя вести дистанционно. Нужен инструктор с дипломом, оборудование, комиссия, протоколы, выгрузки в Минтруд и ФИС ФРДО. Правила при этом продолжают меняться, штрафы — расти. Один специалист по охране труда может не справиться. Мы и не просим.</p>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Абзац собран из реальных требований 2464: практика очно, инструктор, комиссия, выгрузки. Специалист по ОТ читает и узнаёт свой рабочий день. Последние две фразы — поворот от страха к облегчению.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="site">
+      <div class="tag">Шесть карточек в сетке</div>
+      <div class="cards">
+        <div class="card"><b>Практика — на нас</b><p>Инструкторы с дипломами уже в подписке. Свой преподаватель и манекены вам не понадобятся.</p></div>
+        <div class="card"><b>Комиссия и отчёты — наши</b><p>Экзамен принимает наша аккредитованная комиссия. Протоколы и выгрузки в Минтруд и ФИС ФРДО делаем мы. Штраф за ошибку в файле — это не про вас.</p></div>
+        <div class="card"><b>Что просрочено — видно сразу</b><p>Сдал, не сдал, удостоверение кончается через месяц — всё в личном кабинете. Таблица в Excel больше не нужна.</p></div>
+        <div class="card"><b>Подписи — не бегая по цехам</b><p>Протокол подписывают электронно прямо в кабинете, там же он и хранится столько, сколько нужно вам. Больше никаких гор бумаг.</p></div>
+        <div class="card"><b>Один договор вместо пяти</b><p>Охрана труда, промбезопасность, ДПО — 250+ курсов за фиксированную цену. Диплом за 20 000 докупать не придётся.</p></div>
+        <div class="card y"><b>Большой завод или пять человек — одна подписка</b><p>Одна платформа, один кабинет, одни и те же люди на связи.</p><p style="margin-top:6px"><span class="btn" style="margin:0">Проверить, что у нас не закрыто</span></p></div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Пять карточек — пять проблем из вашего списка, переведённые на язык выгоды: заголовок — что человек получает, текст — что ему больше не нужно делать. Читается за двадцать секунд.</p>
+      <p>Шестая карточка жёлтая и стоит последней. Она снимает возражение «это для больших» / «это для маленьких» и первый раз зовёт к действию. Кнопка ведёт в блок 4.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="site">
+      <div class="tag">Строка под карточками</div>
+      <p>Новые сотрудники подтягиваются из 1С сами · Шаблоны приказов лежат в базе знаний · Интересные курсы люди досматривают, а не пролистывают.</p>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Пункты 4, 5 и 7 из списка. Важные, но не тянут на отдельную карточку — иначе сетка станет длинной и перестанет читаться.</p>
+    </div>
+  </div>
+
+  <p class="next">Человек уходит из блока с мыслью: <b>«они закрывают всё, что меня пугало. Что дальше?»</b></p>
+</section>
+
+<!-- ===== бегущая строка ===== -->
+<section class="block">
+  <div class="block-head"><span class="n">Между блоками 3 и 4</span><span class="goal">Бегущая строка направлений</span></div>
+  <div class="row">
+    <div class="site">
+      <div class="tag">Жёлтая полоса, текст едет справа налево</div>
+      <p>Охрана труда · Пожарная безопасность · Первая помощь · Экологическая безопасность · Обращение с опасными отходами · Медицинские отходы · ГО и защита от ЧС · Антитеррор · Закупки 44 ФЗ, 223 ФЗ · Энергосбережение · Промбезопасность · ДПО</p>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Две задачи. Для человека — быстро найти своё направление глазами и убедиться, что оно у нас есть. Для поиска — на странице присутствуют все ключевые запросы.</p>
+      <p>Строка движется, поэтому не занимает целый экран и не ломает путь к звонку.</p>
+    </div>
   </div>
 </section>
 
+<!-- ===== 4 ===== -->
 <section class="block">
-  <div class="num">2<small>Доверие</small></div>
-  <div>
-    <h2>Нам доверяют — и мы это заслужили</h2>
-    <div class="goal">Цель: снять страх «а вдруг однодневка / липовые бумажки»</div>
-    <dl>
-      <dt>Тёмный фон</dt><dd>Смена настроения: с лёгкого оффера на серьёзный разговор. Графит + жёлтый — фирменные цвета, блок читается как «подложка из фактов».</dd>
-      <dt>Лид «Сто+ человек, своя платформа, своя комиссия»</dt><dd>Один раз, в первой строке — чтобы не повторяться в цифрах ниже.</dd>
-      <dt>Логотипы клиентов</dt><dd>СИБУР, Норникель, Fix Price, Роснефть, Юг Руси. Работает мгновенно: если им можно — вам точно можно.</dd>
-      <dt>Три цифры</dt><dd>100 000+ компаний · 700 000+ сотрудников · 450 000 заявок. Масштаб, который не подделать.</dd>
-      <dt>Большая карточка HR-бренд</dt><dd>Лого премии + лого hh.ru, «Золото 2023 и 2024». Это главное доказательство, что мы публичная компания с именем, поэтому карточка самая крупная и подсвечена жёлтым.</dd>
-      <dt>Две малые карточки</dt><dd>Василий Папин — член жюри премии; ГлавПро — в совете рейтинга работодателей рядом с X5, VK, Альфа-Банком. Мы не только получаем награды, нас зовут оценивать других.</dd>
-      <dt>Полоска «Лицензии и проверки»</dt><dd>Внизу, во всю ширину, с миниатюрами документов. Заметно, но не в центре: законность — само собой разумеющееся, а не повод для гордости.</dd>
-    </dl>
-    <p class="arrow">Ведёт к: <b>«верю. А что вы решите конкретно для меня?»</b></p>
+  <div class="block-head"><span class="n">Блок 4</span><span class="goal">Звонок. Задача: чтобы максимум людей оставили телефон</span></div>
+
+  <div class="row">
+    <div class="site dark">
+      <div class="tag">Заголовок блока</div>
+      <div class="h">Перезвоним через минуту <small>и скажем, где вы рискуете</small></div>
+      <p>Оставьте номер. Спросим, кто у вас учится и что уже есть, — и честно скажем, к чему у инспектора будут вопросы.</p>
+      <ul><li>Бесплатно</li></ul>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Просим не «оставить заявку», а предлагаем пользу до покупки: разбор, где у компании слабые места перед проверкой. Человеку есть зачем звонить, даже если он пока не собирается покупать.</p>
+      <p>«Бесплатно» — единственный пункт. Больше пунктов — больше текста, меньше заявок.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="site">
+      <div class="tag">Форма</div>
+      <p>Поле: Телефон</p>
+      <span class="btn y">Жду звонка</span>
+      <p style="font-size:13px;color:var(--muted)">☐ Согласен с политикой конфиденциальности и публичной офертой</p>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Одно поле. Без имени, компании и почты — всё это менеджер спросит голосом. Каждое лишнее поле в форме — минус к заявкам.</p>
+      <p>Текст кнопки от лица клиента, а не «Отправить». Та же кнопка стоит в шапке сайта на всех экранах.</p>
+    </div>
   </div>
 </section>
 
+<!-- ===== история ===== -->
 <section class="block">
-  <div class="num">3<small>Проблема → просто</small></div>
-  <div>
-    <h2>Соблюсти закон сложно. А с нами — просто</h2>
-    <div class="goal">Цель: чтобы у специалиста по ОТ ёкнуло «это про меня», и сразу — выдох</div>
-    <dl>
-      <dt>Заголовок + лид</dt><dd>Правая колонка — концентрат боли: практику нельзя дистанционно, нужен инструктор, комиссия, выгрузки в Минтруд и ФРДО, правила меняются, штрафы растут. «Один специалист может не справиться. Мы и не просим» — поворот от страха к облегчению в одной фразе.</dd>
-      <dt>Пять фото-карточек</dt><dd>Тот же приём, что понравился заказчику на текущем сайте: винтажное фото, лента открывает цвет, короткий заголовок-выгода. Каждая карточка — одна боль и её закрытие: практика, комиссия и отчёты, сроки, подписи, один договор вместо пяти. Читается за 20 секунд.</dd>
-      <dt>Шестая жёлтая карточка</dt><dd>«Большой завод или пять человек — одна подписка» + кнопка «Проверить, что у нас не закрыто». Закрывает сетку и первый раз зовёт к действию — теперь человек к этому готов.</dd>
-      <dt>Строка-дополнение</dt><dd>1С, база знаний, вовлекающие курсы — то, что важно, но не тянет на отдельную карточку. Не перегружает сетку.</dd>
-    </dl>
-    <p class="arrow">Ведёт к: <b>«они закрывают всё, что меня пугало. Что делать?»</b></p>
+  <div class="block-head"><span class="n">Внизу страницы</span><span class="goal">История компании</span></div>
+  <div class="row">
+    <div class="site">
+      <div class="tag">Заголовок</div>
+      <div class="h">Наш путь <small>с 2012 года</small></div>
+      <p>Горизонтальная лента событий по годам: старт, проверки, рост команды, платформа, премии HR-бренд 2023–2024, жюри, совет рейтинга.</p>
+    </div>
+    <div class="note">
+      <div class="tag">Комментарий</div>
+      <p>Для тех, кто дочитал до конца и хочет понять, кто за компанией стоит. В четвёрку основных блоков не входит и на путь к звонку не влияет. Оставлены события про надёжность и масштаб, олимпиады и подобное убраны.</p>
+    </div>
   </div>
 </section>
 
-<section class="block">
-  <div class="num">~<small>Бегущая строка</small></div>
-  <div>
-    <h2>Направления обучения</h2>
-    <div class="goal">Цель: SEO и узнавание — без отдельного экрана</div>
-    <dl>
-      <dt>Жёлтая лента с пунктиром</dt><dd>Охрана труда, пожарная безопасность, первая помощь, промбезопасность, ДПО и так далее. Человек видит знакомые слова, а поисковик — ключевые запросы. Движется, поэтому не съедает высоту страницы и не отвлекает от сценария. Стоит ровно перед звонком: последнее «да, у них есть моё направление».</dd>
-    </dl>
-  </div>
-</section>
-
-<section class="block">
-  <div class="num">4<small>Действие</small></div>
-  <div class="dark">
-    <h2>Перезвоним через минуту — и скажем, где вы рискуете</h2>
-    <div class="goal">Цель: максимум людей оставили номер</div>
-    <dl>
-      <dt>Обещание вместо просьбы</dt><dd>Не «оставьте заявку», а «честно скажем, к чему у инспектора будут вопросы». Человек получает пользу до покупки — это приманка блока.</dd>
-      <dt>Одно поле</dt><dd>Только телефон и галочка согласия. Ни ФИО, ни компании, ни e-mail: каждое лишнее поле — минус заявки.</dd>
-      <dt>Кнопка «Жду звонка»</dt><dd>Жёлтая, крупная, повторяет кнопку в шапке. Текст от лица клиента, а не «Отправить».</dd>
-      <dt>Метка «Бесплатно»</dt><dd>Единственный пункт под лидом. Снимает последнее возражение.</dd>
-    </dl>
-  </div>
-</section>
-
-<section class="block">
-  <div class="num">+<small>История</small></div>
-  <div>
-    <h2>Наш путь с 2012 года</h2>
-    <div class="goal">Цель: для тех, кто дочитал и хочет узнать людей за компанией</div>
-    <dl>
-      <dt>Горизонтальная лента лет</dt><dd>Внизу, вне «четырёх блоков». Оставлены проверки, рост, платформа, премии HR-бренд 2023–2024, жюри, совет рейтинга — убрано всё, что не про надёжность и масштаб. Дочитавший уходит с ощущением «живая компания с характером», а кнопка «Жду звонка» в шапке всё время рядом.</dd>
-    </dl>
-  </div>
-</section>
-
-<footer>Во всех блоках — один визуальный язык текущего сайта: графит, жёлтый, лента безопасности, винтажные фото, которые лента «проявляет» в цвет. Ни один элемент не остаётся чёрно-белым после анимации.</footer>
+<footer>Кнопка «Жду звонка» есть в шапке, в жёлтой карточке блока 3, в блоке 4 и в подвале — с любого места страницы до формы один клик.</footer>
 </div>
 </body>
 </html>

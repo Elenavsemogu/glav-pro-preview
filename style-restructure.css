@@ -13,17 +13,14 @@
 /* 116 ₽ — ударная цифра под hero, на бумаге, с жёлтой лентой */
 .price{position:relative;margin-top:64px;padding:48px 0 56px;border-top:1px solid var(--line);overflow:hidden}
 .price__wrap{display:grid;grid-template-columns:auto 1fr;gap:20px 48px;align-items:end}
-.price__num{font-size:clamp(120px,18vw,260px);font-weight:900;letter-spacing:-.07em;line-height:.8;
-  color:var(--graphite);display:flex;align-items:baseline;gap:.05em}
-.price__cur{font-size:.42em;color:var(--yellow);-webkit-text-stroke:2px var(--graphite);
-  letter-spacing:0;transform:translateY(-.15em)}
+.price__num{font-size:clamp(120px,18vw,260px);font-weight:700;letter-spacing:-.05em;line-height:.8;
+  color:var(--graphite);display:flex;align-items:baseline;gap:.06em}
+.price__cur{font-size:.42em;letter-spacing:0;transform:translateY(-.15em)}
 .price__side{padding-bottom:.6em;max-width:30ch}
 .price__side .kicker{margin-bottom:10px}
 .price__label{margin:0;font-size:clamp(18px,1.8vw,24px);line-height:1.3;font-weight:700;color:var(--ink)}
-.price__tape{position:absolute;left:-10%;right:-10%;bottom:0;height:14px;
-  background:repeating-linear-gradient(var(--tape-angle),var(--yellow) 0 var(--bar),transparent var(--bar) var(--period))}
-
-.trust__clients-row img[src*="nornickel"]{filter:brightness(0) invert(1)}
+.price__tape{position:absolute;left:0;right:0;bottom:0;height:28px;
+  background:repeating-linear-gradient(var(--tape-angle),#FFE119 0 var(--bar),transparent var(--bar) var(--period))}
 
 /* Награда HH — главная карточка блока доверия */
 .award-card{position:relative;padding:34px 34px 36px;border-radius:16px;
@@ -46,25 +43,20 @@
 .trust__docs--sm{display:grid;grid-template-columns:repeat(3,72px);gap:8px}
 .trust__docs--sm .shot{aspect-ratio:3/4;border-radius:6px}
 
-/* Решения — фото-карточки как на сайте, 6-я жёлтая */
-.solve{grid-template-columns:repeat(3,1fr)}
-.solve .promise{aspect-ratio:1/1.05}
-.solve .promise__body{padding:26px}
-.solve .promise__body .h3{font-size:20px}
-.solve .promise__body p{font-size:14px;line-height:1.45}
-.promise--out{background:var(--yellow);display:flex;align-items:flex-end;text-decoration:none;color:var(--ink)}
-.promise--out__body{padding:28px}
-.promise--out h3{font-size:clamp(22px,2.2vw,30px);font-weight:900;line-height:.98;letter-spacing:-.03em;
-  text-transform:uppercase;margin-bottom:12px}
-.promise--out p{font-size:15px;line-height:1.45;margin-bottom:22px}
-.promise--out .btn{height:48px;padding:0 20px;font-size:14px}
-.promise--out:hover .btn{background:var(--ink);color:var(--yellow)}
+/* Решения — текстовые карточки, 6-я жёлтая */
+.solve{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.solve__card{padding:28px 26px 30px;background:#fff;border:1px solid var(--line);border-radius:16px}
+.solve__card h3{font-size:22px;font-weight:900;line-height:1.12;letter-spacing:-.02em;margin-bottom:12px}
+.solve__card p{margin:0;font-size:15px;line-height:1.5;color:var(--muted)}
+.solve__out{background:var(--yellow);border-color:var(--yellow);display:flex;flex-direction:column;
+  justify-content:flex-end;text-decoration:none;color:var(--ink)}
+.solve__out h3{font-size:clamp(22px,2.2vw,28px);text-transform:uppercase;line-height:.98;letter-spacing:-.03em}
+.solve__out p{color:var(--ink);margin-bottom:22px}
+.solve__out .btn{height:48px;padding:0 20px;font-size:14px;align-self:flex-start}
+.solve__out:hover .btn{background:var(--ink);color:var(--yellow)}
 
-/* Бегущая строка направлений — перед CTA, в стиле жёлтой ленты */
+/* Бегущая строка направлений — перед CTA */
 .dirs-marquee{overflow:hidden;background:var(--yellow);padding:20px 0;position:relative}
-.dirs-marquee::before,.dirs-marquee::after{content:'';position:absolute;left:0;right:0;height:6px;
-  background:repeating-linear-gradient(90deg,var(--graphite) 0 28px,transparent 28px 44px)}
-.dirs-marquee::before{top:0}.dirs-marquee::after{bottom:0}
 .dirs-marquee__track{display:flex;width:max-content;animation:dirs-rtl 48s linear infinite}
 .dirs-marquee__row{display:flex;align-items:center;flex:none}
 .dirs-marquee__row span{font-size:16px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;
@@ -93,8 +85,8 @@
 .trust__clients .kicker{color:rgba(255,255,255,.45);margin-bottom:22px}
 .trust__scale{margin-bottom:42px}
 .trust__clients-row{display:flex;align-items:center;justify-content:space-between;gap:36px;flex-wrap:wrap}
-.trust__clients-row img{height:40px;width:auto;max-width:160px;object-fit:contain;opacity:.95;
-  filter:none}
+.trust__clients-row img{height:40px;width:auto;max-width:160px;object-fit:contain;opacity:.82;
+  filter:brightness(0) invert(1)}
 .trust__clients-row img:hover{opacity:1}
 
 .trust__body{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;align-items:stretch}
