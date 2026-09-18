@@ -47,7 +47,7 @@ window.addEventListener('resize', () => {
   document.querySelectorAll('.shot[data-img]').forEach((fig) => io.observe(fig));
 })();
 
-/* ---------- Hero: hold при смене = без рывка после ленты ---------- */
+/* ---------- Hero: без рывка — ленту прячем на сбросе p, curr без клипа ---------- */
 (function () {
   const el = document.getElementById('heroSafety');
   if (!el) return;
@@ -67,6 +67,7 @@ window.addEventListener('resize', () => {
   let t0 = 0;
   let running = false;
   let ready = false;
+  let busy = false;
 
   const abs = (src) => new URL(src, document.baseURI).href;
 
@@ -84,37 +85,39 @@ window.addEventListener('resize', () => {
     const b = items[(from + 1) % items.length];
     curr.src = a;
     next.src = b;
-    el.style.setProperty('--mask-curr', 'url("' + a + '")');
-    el.style.setProperty('--mask-next', 'url("' + b + '")');
-  }
-
-  function promote() {
-    i = (i + 1) % items.length;
-    const a = items[i];
-    const b = items[(i + 1) % items.length];
-    const keepMask = el.style.getPropertyValue('--mask-next') || ('url("' + a + '")');
-
-    /* hold: на экране только «стало», лента скрыта — меняем слои без вспышки */
-    el.classList.add('is-hold');
-    el.style.setProperty('--p', '0');
-    curr.src = a;
-    el.style.setProperty('--mask-curr', keepMask);
-    next.src = b;
-    el.style.setProperty('--mask-next', 'url("' + b + '")');
+    el.style.setProperty('--mask', 'url("' + b + '")');
   }
 
   function tick(now) {
-    if (!running) return;
+    if (!running || busy) return;
     const p = Math.min(1, (now - t0) / DUR);
     el.style.setProperty('--p', String(p));
     if (p < 1) {
       raf = requestAnimationFrame(tick);
       return;
     }
-    promote();
+
+    /* Конец: next полностью накрыл curr.
+       1) curr ← next ( fores одинаковые при p=1)
+       2) спрятать ленту (иначе телепорт p:1→0)
+       3) p=0, подставить следующий next
+       4) показать ленту и ехать снова */
+    busy = true;
+    i = (i + 1) % items.length;
+    const shown = items[i];
+    const upcoming = items[(i + 1) % items.length];
+
+    curr.src = shown;
+
+    el.classList.add('tape-off');
     raf = requestAnimationFrame(() => {
+      el.style.setProperty('--p', '0');
+      next.src = upcoming;
+      el.style.setProperty('--mask', 'url("' + upcoming + '")');
+
       raf = requestAnimationFrame((t) => {
-        el.classList.remove('is-hold');
+        el.classList.remove('tape-off');
+        busy = false;
         t0 = t;
         raf = requestAnimationFrame(tick);
       });
@@ -124,7 +127,8 @@ window.addEventListener('resize', () => {
   function start() {
     if (running || !ready || document.hidden) return;
     running = true;
-    el.classList.remove('sweeping', 'shot--revealed', 'is-hold');
+    busy = false;
+    el.classList.remove('sweeping', 'shot--revealed', 'tape-off', 'is-hold');
     layoutTapeTip(el);
     setPair(i);
     el.style.setProperty('--p', '0');
@@ -134,16 +138,20 @@ window.addEventListener('resize', () => {
 
   function stop() {
     running = false;
+    busy = false;
     if (raf) cancelAnimationFrame(raf);
     raf = 0;
-    el.classList.remove('is-hold');
+    el.classList.add('tape-off');
   }
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
       stop();
       el.style.setProperty('--p', '0');
-    } else if (ready) start();
+    } else if (ready) {
+      el.classList.remove('tape-off');
+      start();
+    }
   });
 
   let tipTimer = 0;
@@ -158,7 +166,7 @@ window.addEventListener('resize', () => {
     setPair(0);
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       el.style.setProperty('--p', '1');
-      el.classList.add('is-hold');
+      el.classList.add('tape-off');
       return;
     }
     el.style.setProperty('--p', '0');

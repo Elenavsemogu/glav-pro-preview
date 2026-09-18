@@ -102,10 +102,10 @@
   .solve__body{padding:22px 44% 22px 18px;min-height:170px}
 }
 
-/* Hero: было/стало — разрез по последней полосе; лента маской ровно по видимому предмету */
+/* Hero: curr всегда целиком снизу; next открывается клипом; лента одна.
+   Рывок был из‑за телепорта ленты p:1→0 — прячем ленту на кадр смены. */
 .hero__safety{max-width:480px;aspect-ratio:1;position:relative;overflow:hidden;display:block;
-  --mask-curr:url('img/safety/extinguisher.webp');
-  --mask-next:url('img/safety/cabinet.webp');
+  --mask:url('img/safety/cabinet.webp');
   --split-top:calc(100% - var(--p) * (100% + var(--rw)) + var(--rw) + var(--tip));
   --split-bot:calc(100% - var(--p) * (100% + var(--rw)) + var(--rw));
   transform:translateZ(0)}
@@ -113,37 +113,25 @@
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:contain;object-position:center;filter:none;display:block;
   pointer-events:none}
-.hero__safety .hero__safety-curr{z-index:1;
-  clip-path:polygon(0% 0%,var(--split-top) 0%,var(--split-bot) 100%,0% 100%)}
+.hero__safety .hero__safety-curr{z-index:1;clip-path:none}
 .hero__safety .hero__safety-next{z-index:2;
-  clip-path:polygon(var(--split-top) 0%,100% 0%,100% 100%,var(--split-bot) 100%)}
+  clip-path:polygon(
+    var(--split-top) 0%,
+    100% 0%,
+    100% 100%,
+    var(--split-bot) 100%
+  )}
 .hero__safety .hero__tape-clip{
+  -webkit-mask-image:var(--mask);mask-image:var(--mask);
   -webkit-mask-size:contain;mask-size:contain;
   -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
   -webkit-mask-position:center;mask-position:center;
   -webkit-mask-source-type:alpha;mask-mode:alpha;
-  opacity:1;visibility:visible}
-.hero__safety .hero__tape-clip--curr{
-  -webkit-mask-image:var(--mask-curr);mask-image:var(--mask-curr);
-  clip-path:polygon(0% 0%,var(--split-top) 0%,var(--split-bot) 100%,0% 100%)}
-.hero__safety .hero__tape-clip--next{
-  -webkit-mask-image:var(--mask-next);mask-image:var(--mask-next);
-  clip-path:polygon(var(--split-top) 0%,100% 0%,100% 100%,var(--split-bot) 100%)}
-/* Hero не использует CSS sweeping — --p крутит JS */
+  opacity:1;visibility:visible;transition:none}
+.hero__safety.tape-off .hero__tape-clip{opacity:0;visibility:hidden}
 .hero__safety.sweeping{animation:none!important}
-/* Hold: после ленты виден только next — смена слоёв без рывка */
-.hero__safety.is-hold .hero__safety-curr,
-.hero__safety.is-hold .hero__tape-clip--curr{clip-path:inset(0 100% 0 0)}
-.hero__safety.is-hold .hero__safety-next{clip-path:none}
-.hero__safety.is-hold .hero__tape-clip{opacity:0;visibility:hidden}
-.hero__safety.shot--revealed .hero__safety-curr,
-.hero__safety.shot--revealed .hero__tape-clip--curr{clip-path:inset(0 100% 0 0)}
-.hero__safety.shot--revealed .hero__safety-next{clip-path:none}
-.hero__safety.shot--revealed .hero__tape-clip{opacity:0;visibility:hidden}
 @media(prefers-reduced-motion:reduce){
   .hero__safety{--p:1}
-  .hero__safety .hero__safety-curr,
-  .hero__safety .hero__tape-clip--curr{clip-path:inset(0 100% 0 0)}
   .hero__safety .hero__safety-next{clip-path:none}
   .hero__safety .hero__tape-clip{opacity:0;visibility:hidden}
 }
