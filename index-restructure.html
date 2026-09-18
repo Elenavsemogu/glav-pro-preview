@@ -6,9 +6,10 @@
 <title>ГлавПро — обучаем безопасности. 250+ курсов по подписке</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;700;900&display=swap&subset=cyrillic,latin" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700;900&display=swap&subset=cyrillic" rel="stylesheet">
+<link rel="preload" as="image" href="img/safety/extinguisher.webp" type="image/webp">
 <link rel="stylesheet" href="style-v2.css">
-<link rel="stylesheet" href="style-restructure.css?v=22">
+<link rel="stylesheet" href="style-restructure.css?v=23">
 </head>
 <body>
 
@@ -48,8 +49,8 @@
     </div>
     <figure class="hero__helmet hero__safety" id="heroSafety"
       style="--mask-curr:url('img/safety/extinguisher.webp');--mask-next:url('img/safety/cabinet.webp')">
-      <img class="hero__helmet-img hero__safety-curr" src="img/safety/extinguisher.webp" alt="" width="400" height="400" decoding="async">
-      <img class="hero__helmet-img hero__safety-next" src="img/safety/cabinet.webp" alt="" width="400" height="400" decoding="async" aria-hidden="true">
+      <img class="hero__helmet-img hero__safety-curr" src="img/safety/extinguisher.webp" alt="" width="400" height="400" decoding="async" fetchpriority="high">
+      <img class="hero__helmet-img hero__safety-next" src="img/safety/cabinet.webp" alt="" width="400" height="400" decoding="async" fetchpriority="low" aria-hidden="true">
       <span class="hero__tape-clip hero__tape-clip--curr" aria-hidden="true"><span class="hero__tape"></span></span>
       <span class="hero__tape-clip hero__tape-clip--next" aria-hidden="true"><span class="hero__tape"></span></span>
     </figure>
@@ -61,22 +62,22 @@
   <div class="trust__brands" aria-label="Клиенты">
     <div class="trust__brands-track">
       <div class="trust__brands-row">
-        <img src="img/clients/sibur.svg" alt="СИБУР">
-        <img src="img/clients/nornickel.svg" alt="Норникель">
-        <img src="img/clients/fixprice.svg" alt="Fix Price">
-        <img src="img/clients/rosneft.svg" alt="Роснефть">
-        <img src="img/clients/yug-rusi.svg" alt="Юг Руси">
-        <img src="img/clients/rzd.svg" alt="РЖД">
-        <img src="img/clients/yugk.svg" alt="ЮГК">
+        <img loading="lazy" decoding="async" src="img/clients/sibur.svg" alt="СИБУР">
+        <img loading="lazy" decoding="async" src="img/clients/nornickel.svg" alt="Норникель">
+        <img loading="lazy" decoding="async" src="img/clients/fixprice.svg" alt="Fix Price">
+        <img loading="lazy" decoding="async" src="img/clients/rosneft.svg" alt="Роснефть">
+        <img loading="lazy" decoding="async" src="img/clients/yug-rusi.svg" alt="Юг Руси">
+        <img loading="lazy" decoding="async" src="img/clients/rzd.svg" alt="РЖД">
+        <img loading="lazy" decoding="async" src="img/clients/yugk.svg" alt="ЮГК">
       </div>
       <div class="trust__brands-row" aria-hidden="true">
-        <img src="img/clients/sibur.svg" alt="">
-        <img src="img/clients/nornickel.svg" alt="">
-        <img src="img/clients/fixprice.svg" alt="">
-        <img src="img/clients/rosneft.svg" alt="">
-        <img src="img/clients/yug-rusi.svg" alt="">
-        <img src="img/clients/rzd.svg" alt="">
-        <img src="img/clients/yugk.svg" alt="">
+        <img loading="lazy" decoding="async" src="img/clients/sibur.svg" alt="">
+        <img loading="lazy" decoding="async" src="img/clients/nornickel.svg" alt="">
+        <img loading="lazy" decoding="async" src="img/clients/fixprice.svg" alt="">
+        <img loading="lazy" decoding="async" src="img/clients/rosneft.svg" alt="">
+        <img loading="lazy" decoding="async" src="img/clients/yug-rusi.svg" alt="">
+        <img loading="lazy" decoding="async" src="img/clients/rzd.svg" alt="">
+        <img loading="lazy" decoding="async" src="img/clients/yugk.svg" alt="">
       </div>
     </div>
   </div>
@@ -128,13 +129,13 @@
           Мы успешно прошли проверки Минобразования, Минюста и трудовой инспекции.</p>
       </div>
       <div class="trust__docs trust__docs--sm">
-        <figure class="shot shot--sweep" style="--img:url('img/doc1_full.jpg')">
+        <figure class="shot" data-img="img/doc1_full.jpg">
           <span class="shot__base"></span><span class="shot__color"></span><span class="shot__tape"></span>
         </figure>
-        <figure class="shot shot--sweep" style="--img:url('img/doc2_full.jpg')">
+        <figure class="shot" data-img="img/doc2_full.jpg">
           <span class="shot__base"></span><span class="shot__color"></span><span class="shot__tape"></span>
         </figure>
-        <figure class="shot shot--sweep" style="--img:url('img/doc3_full.jpg')">
+        <figure class="shot" data-img="img/doc3_full.jpg">
           <span class="shot__base"></span><span class="shot__color"></span><span class="shot__tape"></span>
         </figure>
       </div>
@@ -153,9 +154,9 @@
 
     <div class="solve">
       <article class="solve__card">
-        <figure class="solve__ill shot--sweep" style="--mask:url('img/solve/practice.png')">
-          <img class="solve__ill-img solve__ill-bw" src="img/solve/practice.png" alt="">
-          <img class="solve__ill-img solve__ill-color" src="img/solve/practice.png" alt="" aria-hidden="true">
+        <figure class="solve__ill shot--sweep" style="--mask:url('img/solve/practice.webp')">
+          <img class="solve__ill-img solve__ill-bw" loading="lazy" decoding="async" src="img/solve/practice.webp" alt="">
+          <img class="solve__ill-img solve__ill-color" loading="lazy" decoding="async" src="img/solve/practice.webp" alt="" aria-hidden="true">
           <span class="solve__tape-clip" aria-hidden="true"><span class="solve__tape"></span></span>
         </figure>
         <div class="solve__body">
@@ -164,9 +165,9 @@
         </div>
       </article>
       <article class="solve__card">
-        <figure class="solve__ill shot--sweep" style="--mask:url('img/solve/commission.png')">
-          <img class="solve__ill-img solve__ill-bw" src="img/solve/commission.png" alt="">
-          <img class="solve__ill-img solve__ill-color" src="img/solve/commission.png" alt="" aria-hidden="true">
+        <figure class="solve__ill shot--sweep" style="--mask:url('img/solve/commission.webp')">
+          <img class="solve__ill-img solve__ill-bw" loading="lazy" decoding="async" src="img/solve/commission.webp" alt="">
+          <img class="solve__ill-img solve__ill-color" loading="lazy" decoding="async" src="img/solve/commission.webp" alt="" aria-hidden="true">
           <span class="solve__tape-clip" aria-hidden="true"><span class="solve__tape"></span></span>
         </figure>
         <div class="solve__body">
@@ -175,9 +176,9 @@
         </div>
       </article>
       <article class="solve__card">
-        <figure class="solve__ill shot--sweep" style="--mask:url('img/solve/deadlines.png')">
-          <img class="solve__ill-img solve__ill-bw" src="img/solve/deadlines.png" alt="">
-          <img class="solve__ill-img solve__ill-color" src="img/solve/deadlines.png" alt="" aria-hidden="true">
+        <figure class="solve__ill shot--sweep" style="--mask:url('img/solve/deadlines.webp')">
+          <img class="solve__ill-img solve__ill-bw" loading="lazy" decoding="async" src="img/solve/deadlines.webp" alt="">
+          <img class="solve__ill-img solve__ill-color" loading="lazy" decoding="async" src="img/solve/deadlines.webp" alt="" aria-hidden="true">
           <span class="solve__tape-clip" aria-hidden="true"><span class="solve__tape"></span></span>
         </figure>
         <div class="solve__body">
@@ -186,9 +187,9 @@
         </div>
       </article>
       <article class="solve__card">
-        <figure class="solve__ill shot--sweep" style="--mask:url('img/solve/signatures.png')">
-          <img class="solve__ill-img solve__ill-bw" src="img/solve/signatures.png" alt="">
-          <img class="solve__ill-img solve__ill-color" src="img/solve/signatures.png" alt="" aria-hidden="true">
+        <figure class="solve__ill shot--sweep" style="--mask:url('img/solve/signatures.webp')">
+          <img class="solve__ill-img solve__ill-bw" loading="lazy" decoding="async" src="img/solve/signatures.webp" alt="">
+          <img class="solve__ill-img solve__ill-color" loading="lazy" decoding="async" src="img/solve/signatures.webp" alt="" aria-hidden="true">
           <span class="solve__tape-clip" aria-hidden="true"><span class="solve__tape"></span></span>
         </figure>
         <div class="solve__body">
@@ -197,9 +198,9 @@
         </div>
       </article>
       <article class="solve__card">
-        <figure class="solve__ill shot--sweep" style="--mask:url('img/solve/contract.png')">
-          <img class="solve__ill-img solve__ill-bw" src="img/solve/contract.png" alt="">
-          <img class="solve__ill-img solve__ill-color" src="img/solve/contract.png" alt="" aria-hidden="true">
+        <figure class="solve__ill shot--sweep" style="--mask:url('img/solve/contract.webp')">
+          <img class="solve__ill-img solve__ill-bw" loading="lazy" decoding="async" src="img/solve/contract.webp" alt="">
+          <img class="solve__ill-img solve__ill-color" loading="lazy" decoding="async" src="img/solve/contract.webp" alt="" aria-hidden="true">
           <span class="solve__tape-clip" aria-hidden="true"><span class="solve__tape"></span></span>
         </figure>
         <div class="solve__body">
@@ -363,6 +364,6 @@
   </div>
 </footer>
 
-<script src="app-restructure.js?v=22"></script>
+<script src="app-restructure.js?v=23"></script>
 </body>
 </html>

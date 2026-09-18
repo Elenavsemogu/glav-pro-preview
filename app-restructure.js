@@ -30,7 +30,24 @@ window.addEventListener('resize', () => {
   document.querySelectorAll('.shot--sweep, .shot--revealed').forEach(layoutTapeTip);
 });
 
-/* ---------- Hero: было/стало на rAF — без CSS animationend (стабильно на Pages) ---------- */
+/* Документы / любые shot с data-img — грузим только рядом с экраном */
+(function () {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      const fig = en.target;
+      const src = fig.dataset.img;
+      if (!src) return;
+      fig.style.setProperty('--img', `url('${src}')`);
+      fig.classList.add('shot--sweep');
+      sweeper.observe(fig);
+      io.unobserve(fig);
+    });
+  }, { rootMargin: '180px', threshold: 0.01 });
+  document.querySelectorAll('.shot[data-img]').forEach((fig) => io.observe(fig));
+})();
+
+/* ---------- Hero: hold при смене = без рывка после ленты ---------- */
 (function () {
   const el = document.getElementById('heroSafety');
   if (!el) return;
@@ -50,7 +67,6 @@ window.addEventListener('resize', () => {
   let t0 = 0;
   let running = false;
   let ready = false;
-  let advancing = false;
 
   const abs = (src) => new URL(src, document.baseURI).href;
 
@@ -72,35 +88,33 @@ window.addEventListener('resize', () => {
     el.style.setProperty('--mask-next', 'url("' + b + '")');
   }
 
-  /* Продвижение без вспышки: curr ← то что уже на next, потом только новый next */
   function promote() {
     i = (i + 1) % items.length;
     const a = items[i];
     const b = items[(i + 1) % items.length];
-    const nextMask = el.style.getPropertyValue('--mask-next') || ('url("' + a + '")');
+    const keepMask = el.style.getPropertyValue('--mask-next') || ('url("' + a + '")');
 
+    /* hold: на экране только «стало», лента скрыта — меняем слои без вспышки */
+    el.classList.add('is-hold');
     el.style.setProperty('--p', '0');
     curr.src = a;
-    el.style.setProperty('--mask-curr', nextMask);
+    el.style.setProperty('--mask-curr', keepMask);
     next.src = b;
     el.style.setProperty('--mask-next', 'url("' + b + '")');
   }
 
   function tick(now) {
-    if (!running || advancing) return;
+    if (!running) return;
     const p = Math.min(1, (now - t0) / DUR);
     el.style.setProperty('--p', String(p));
     if (p < 1) {
       raf = requestAnimationFrame(tick);
       return;
     }
-
-    /* конец проезда: зафиксировать кадр, сменить пару, через 2 кадра снова ехать */
-    advancing = true;
     promote();
     raf = requestAnimationFrame(() => {
       raf = requestAnimationFrame((t) => {
-        advancing = false;
+        el.classList.remove('is-hold');
         t0 = t;
         raf = requestAnimationFrame(tick);
       });
@@ -110,8 +124,7 @@ window.addEventListener('resize', () => {
   function start() {
     if (running || !ready || document.hidden) return;
     running = true;
-    advancing = false;
-    el.classList.remove('sweeping', 'shot--revealed');
+    el.classList.remove('sweeping', 'shot--revealed', 'is-hold');
     layoutTapeTip(el);
     setPair(i);
     el.style.setProperty('--p', '0');
@@ -121,9 +134,9 @@ window.addEventListener('resize', () => {
 
   function stop() {
     running = false;
-    advancing = false;
     if (raf) cancelAnimationFrame(raf);
     raf = 0;
+    el.classList.remove('is-hold');
   }
 
   document.addEventListener('visibilitychange', () => {
@@ -137,7 +150,7 @@ window.addEventListener('resize', () => {
   window.addEventListener('resize', () => {
     if (!ready) return;
     clearTimeout(tipTimer);
-    tipTimer = setTimeout(() => layoutTapeTip(el), 120);
+    tipTimer = setTimeout(() => layoutTapeTip(el), 150);
   });
 
   Promise.all([load(items[0]), load(items[1])]).then(() => {
@@ -145,6 +158,7 @@ window.addEventListener('resize', () => {
     setPair(0);
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       el.style.setProperty('--p', '1');
+      el.classList.add('is-hold');
       return;
     }
     el.style.setProperty('--p', '0');
@@ -222,11 +236,11 @@ const events = [
   { i: 'img/history/27.jpg', y: 2021, t: 'Полная проверка Минобразования', d: 'Снова без нарушений.' },
   { i: 'img/history/28.jpg', y: 2022, t: '50 000-й клиент', d: 'Столько компаний нам доверяют.' },
   { i: 'img/history/33.jpg', y: 2023, t: 'Своё ПО', d: 'Свидетельство о регистрации программы.' },
-  { i: 'img/history/39.png', y: 2023, t: 'Золото HR-бренд hh.ru', d: 'Первое место.' },
-  { i: 'img/history/39.png', y: 2024, t: 'Снова золото hh.ru', d: 'Проект «ГлавТренер».' },
+  { i: 'img/history/39.jpg', y: 2023, t: 'Золото HR-бренд hh.ru', d: 'Первое место.' },
+  { i: 'img/history/39.jpg', y: 2024, t: 'Снова золото hh.ru', d: 'Проект «ГлавТренер».' },
   { i: 'img/history/36.jpg', y: 2024, t: '83 067 клиентов', d: 'Идём к 100 000.' },
-  { i: 'img/history/40.png', y: 2025, t: 'Жюри премии hh.ru', d: 'Василий Папин возглавил жюри.' },
-  { i: 'img/history/40.png', y: 2026, t: 'Совет рейтинга работодателей', d: 'Рядом с X5, VK, Альфа-Банком.' },
+  { i: 'img/history/40.jpg', y: 2025, t: 'Жюри премии hh.ru', d: 'Василий Папин возглавил жюри.' },
+  { i: 'img/history/40.jpg', y: 2026, t: 'Совет рейтинга работодателей', d: 'Рядом с X5, VK, Альфа-Банком.' },
   { i: 'img/history/38.jpg', y: 2026, t: 'К 2027 — изменить индустрию', d: 'Меньше штрафов и нервов на проверках.' }
 ];
 
@@ -236,7 +250,7 @@ const thumb = document.getElementById('tlThumb');
 
 track.innerHTML = events.map((e) => `
   <article class="tl__card" data-year="${e.y}">
-    ${e.i ? `<figure class="shot shot--sweep tl__shot" style="--img:url('${e.i}')">
+    ${e.i ? `<figure class="shot tl__shot" data-img="${e.i}">
       <span class="shot__base"></span><span class="shot__color"></span><span class="shot__tape"></span>
     </figure>` : ''}
     <div class="tl__body">
@@ -246,7 +260,20 @@ track.innerHTML = events.map((e) => `
     </div>
   </article>`).join('');
 
-track.querySelectorAll('.shot--sweep').forEach((el) => sweeper.observe(el));
+/* Картинки истории — только когда карточка рядом с экраном */
+const lazyHistory = new IntersectionObserver((entries) => {
+  entries.forEach((en) => {
+    if (!en.isIntersecting) return;
+    const fig = en.target;
+    const src = fig.dataset.img;
+    if (!src) return;
+    fig.style.setProperty('--img', `url('${src}')`);
+    fig.classList.add('shot--sweep');
+    sweeper.observe(fig);
+    lazyHistory.unobserve(fig);
+  });
+}, { root: track, rootMargin: '120px', threshold: 0.01 });
+track.querySelectorAll('.tl__shot[data-img]').forEach((fig) => lazyHistory.observe(fig));
 
 const years = [...new Set(events.map((e) => e.y))];
 years.forEach((y) => {

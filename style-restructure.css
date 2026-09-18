@@ -131,6 +131,11 @@
   clip-path:polygon(var(--split-top) 0%,100% 0%,100% 100%,var(--split-bot) 100%)}
 /* Hero не использует CSS sweeping — --p крутит JS */
 .hero__safety.sweeping{animation:none!important}
+/* Hold: после ленты виден только next — смена слоёв без рывка */
+.hero__safety.is-hold .hero__safety-curr,
+.hero__safety.is-hold .hero__tape-clip--curr{clip-path:inset(0 100% 0 0)}
+.hero__safety.is-hold .hero__safety-next{clip-path:none}
+.hero__safety.is-hold .hero__tape-clip{opacity:0;visibility:hidden}
 .hero__safety.shot--revealed .hero__safety-curr,
 .hero__safety.shot--revealed .hero__tape-clip--curr{clip-path:inset(0 100% 0 0)}
 .hero__safety.shot--revealed .hero__safety-next{clip-path:none}
@@ -145,7 +150,7 @@
 
 /* Бегущая полоса направлений — перед CTA */
 .dirs-marquee{overflow:hidden;background:var(--yellow);padding:20px 0;position:relative}
-.dirs-marquee__track{display:flex;width:max-content;animation:dirs-rtl 48s linear infinite}
+.dirs-marquee__track{display:flex;width:max-content;animation:dirs-rtl 48s linear infinite;will-change:transform}
 .dirs-marquee__row{display:flex;align-items:center;flex:none}
 .dirs-marquee__row span{font-size:16px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;
   color:var(--graphite);white-space:nowrap;padding:0 30px;position:relative}
@@ -153,6 +158,12 @@
   border-radius:50%;background:var(--graphite);transform:translateY(-50%)}
 @keyframes dirs-rtl{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(prefers-reduced-motion:reduce){.dirs-marquee__track{animation:none}}
+
+/* История: плейсхолдер до lazy-load картинки */
+.tl__shot:not([style*='--img']){background:var(--paper-2)}
+.tl__shot:not([style*='--img']) .shot__base,
+.tl__shot:not([style*='--img']) .shot__color,
+.tl__shot:not([style*='--img']) .shot__tape{opacity:0}
 
 /* ---------- Блок 2: масштаб и доверие ---------- */
 .trust{background:var(--graphite);color:#fff;padding-top:0}
