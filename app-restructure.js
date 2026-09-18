@@ -30,10 +30,11 @@ window.addEventListener('resize', () => {
   document.querySelectorAll('.shot--sweep, .shot--revealed').forEach(layoutTapeTip);
 });
 
-/* ---------- Hero: было/стало — стабильный цикл без вспышек ---------- */
+/* ---------- Hero: было/стало на rAF — без CSS animationend (стабильно на Pages) ---------- */
 (function () {
   const el = document.getElementById('heroSafety');
   if (!el) return;
+
   const items = [
     'img/safety/extinguisher.webp',
     'img/safety/cabinet.webp',
@@ -43,102 +44,100 @@ window.addEventListener('resize', () => {
   ];
   const curr = el.querySelector('.hero__safety-curr');
   const next = el.querySelector('.hero__safety-next');
+  const DUR = 1400;
   let i = 0;
-  let sweeping = false;
-  let tipLocked = false;
+  let raf = 0;
+  let t0 = 0;
+  let running = false;
+  let ready = false;
 
-  const absUrl = (src) => new URL(src, document.baseURI).href;
+  const abs = (src) => new URL(src, document.baseURI).href;
 
-  function loadOne(src) {
+  function load(src) {
     return new Promise((resolve) => {
       const im = new Image();
-      im.decoding = 'async';
-      im.onload = () => {
-        if (im.decode) im.decode().then(() => resolve(src)).catch(() => resolve(src));
-        else resolve(src);
-      };
+      im.onload = () => resolve(src);
       im.onerror = () => resolve(src);
-      im.src = absUrl(src);
+      im.src = abs(src);
     });
   }
 
   function setPair(from) {
-    const to = (from + 1) % items.length;
     const a = items[from];
-    const b = items[to];
-    curr.src = a;
-    next.src = b;
-    el.style.setProperty('--mask-curr', `url("${absUrl(a)}")`);
-    el.style.setProperty('--mask-next', `url("${absUrl(b)}")`);
+    const b = items[(from + 1) % items.length];
+    if (curr.getAttribute('src') !== a) curr.src = a;
+    if (next.getAttribute('src') !== b) next.src = b;
+    /* относительные url — как у img, без CORS-глюков маски на Pages */
+    el.style.setProperty('--mask-curr', 'url("' + a + '")');
+    el.style.setProperty('--mask-next', 'url("' + b + '")');
   }
 
-  function layoutTipSafe() {
-    if (tipLocked) return;
-    layoutTapeTip(el);
-  }
-
-  function startSweep() {
-    if (sweeping) return;
-    if (document.hidden) return;
-    sweeping = true;
-    tipLocked = false;
-    layoutTipSafe();
-    tipLocked = true;
-    el.classList.remove('sweeping', 'shot--revealed');
-    el.style.setProperty('--p', '0');
-    if (el.getAnimations) el.getAnimations().forEach((a) => a.cancel());
-    void el.offsetWidth;
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        if (!sweeping) return;
-        el.classList.add('sweeping');
-      });
-    });
-  }
-
-  el.addEventListener('animationend', (e) => {
-    if (e.target !== el) return;
-    if (e.animationName && e.animationName !== 'tape-rtl') return;
-    if (!sweeping) return;
-
-    /* Сначала --p:0 (видно только curr), потом меняем пару — иначе вспышка next */
-    el.classList.remove('sweeping');
-    tipLocked = false;
-    el.style.setProperty('--p', '0');
+  function tick(now) {
+    if (!running) return;
+    const p = Math.min(1, (now - t0) / DUR);
+    el.style.setProperty('--p', p.toFixed(4));
+    if (p < 1) {
+      raf = requestAnimationFrame(tick);
+      return;
+    }
     i = (i + 1) % items.length;
+    el.style.setProperty('--p', '0');
     setPair(i);
-    void el.offsetWidth;
-    sweeping = false;
+    layoutTapeTip(el);
+    t0 = performance.now();
+    raf = requestAnimationFrame(tick);
+  }
 
-    requestAnimationFrame(() => startSweep());
-  });
+  function start() {
+    if (running || !ready || document.hidden) return;
+    running = true;
+    el.classList.remove('sweeping', 'shot--revealed');
+    layoutTapeTip(el);
+    setPair(i);
+    el.style.setProperty('--p', '0');
+    t0 = performance.now();
+    raf = requestAnimationFrame(tick);
+  }
+
+  function stop() {
+    running = false;
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+  }
 
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-      el.classList.remove('sweeping');
-      sweeping = false;
-      tipLocked = false;
+      stop();
       el.style.setProperty('--p', '0');
-    } else if (el.getBoundingClientRect().top < window.innerHeight) {
-      startSweep();
-    }
+    } else if (ready) start();
   });
 
   window.addEventListener('resize', () => {
-    if (!el.classList.contains('sweeping')) layoutTapeTip(el);
+    if (ready) layoutTapeTip(el);
   });
 
-  Promise.all(items.map(loadOne)).then(() => {
+  Promise.all([load(items[0]), load(items[1])]).then(() => {
+    ready = true;
     setPair(0);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.style.setProperty('--p', '1');
+      return;
+    }
     el.style.setProperty('--p', '0');
+    items.slice(2).forEach(load);
+    const tryStart = () => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom > 40 && r.top < window.innerHeight) start();
+    };
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries) => {
         if (!entries[0].isIntersecting) return;
-        startSweep();
+        start();
         io.disconnect();
-      }, { threshold: 0.2 });
+      }, { threshold: 0.1 });
       io.observe(el);
-    } else startSweep();
+      requestAnimationFrame(tryStart);
+    } else start();
   });
 })();
 
