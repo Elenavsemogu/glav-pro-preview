@@ -52,16 +52,56 @@
 .trust__docs--sm .shot{aspect-ratio:3/4;border-radius:6px}
 
 /* Решения — текстовые карточки, 6-я жёлтая */
+.problem{overflow:visible}
+.problem .wrap{overflow:visible}
 .solve{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.solve__card{padding:28px 26px 30px;background:#fff;border:1px solid var(--line);border-radius:16px}
-.solve__card h3{font-size:22px;font-weight:900;line-height:1.12;letter-spacing:-.02em;margin-bottom:12px}
-.solve__card p{margin:0;font-size:15px;line-height:1.5;color:var(--muted)}
+.solve__card{position:relative;display:flex;flex-direction:column;padding:0;overflow:hidden;
+  background:#fff;border:1px solid var(--line);border-radius:16px}
+.solve__ill{position:absolute;right:14px;top:14px;width:min(44%,168px);
+  --p:0;--rw:var(--tape-rw);--tip:0px;z-index:2;pointer-events:none;overflow:hidden}
+.solve__ill.sweeping{animation:tape-rtl var(--tape-dur) linear forwards}
+.solve__ill-img{width:100%;height:auto;display:block}
+.solve__ill-bw{filter:grayscale(1) contrast(1.12) brightness(.9)}
+.solve__ill-color{position:absolute;left:0;top:0;width:100%;height:auto;z-index:2;
+  clip-path:polygon(
+    calc(100% - var(--p) * (100% + var(--rw)) + var(--tip)) 0%,
+    100% 0%,
+    100% 100%,
+    calc(100% - var(--p) * (100% + var(--rw))) 100%
+  )}
+.solve__tape-clip{position:absolute;inset:0;z-index:3;pointer-events:none;overflow:hidden;
+  -webkit-mask-image:var(--mask);mask-image:var(--mask);
+  -webkit-mask-size:100% 100%;mask-size:100% 100%;
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  -webkit-mask-position:center;mask-position:center}
+.solve__tape{position:absolute;top:0;bottom:0;height:100%;width:var(--rw);
+  left:calc(100% - var(--p) * (100% + var(--rw)));
+  background:url('img/safety-tape.svg') center/100% 100% no-repeat}
+.solve__ill.shot--revealed{--p:1}
+.solve__ill.shot--revealed .solve__ill-color{clip-path:none}
+.solve__ill.shot--revealed .solve__tape-clip{opacity:0;visibility:hidden}
+.solve__ill.shot--revealed .solve__ill-bw{filter:none}
+.solve__body{position:relative;z-index:1;padding:26px 48% 28px 24px;min-height:200px;
+  display:flex;flex-direction:column;justify-content:flex-end}
+.solve__card h3{font-size:20px;font-weight:900;line-height:1.12;letter-spacing:-.02em;margin-bottom:10px}
+.solve__card p{margin:0;font-size:14px;line-height:1.5;color:var(--muted)}
 .solve__out{background:var(--yellow);border-color:var(--yellow);display:flex;flex-direction:column;
-  justify-content:flex-end;text-decoration:none;color:var(--ink)}
+  justify-content:flex-end;text-decoration:none;color:var(--ink);padding:28px 26px 30px;min-height:200px}
 .solve__out h3{font-size:clamp(22px,2.2vw,28px);text-transform:uppercase;line-height:.98;letter-spacing:-.03em}
 .solve__out p{color:var(--ink);margin-bottom:22px}
 .solve__out .btn{height:48px;padding:0 20px;font-size:14px;align-self:flex-start}
 .solve__out:hover .btn{background:var(--ink);color:var(--yellow)}
+@media(prefers-reduced-motion:reduce){
+  .solve__ill.sweeping{animation:none}
+  .solve__ill{--p:1}
+  .solve__ill-color{clip-path:none}
+  .solve__tape-clip{opacity:0;visibility:hidden}
+  .solve__ill-bw{filter:none}
+}
+@media(max-width:680px){
+  .solve__ill{right:12px;top:12px;width:min(40%,130px)}
+  .solve__body{padding:22px 44% 22px 18px;min-height:170px}
+}
 
 /* Бегущая строка направлений — перед CTA */
 .dirs-marquee{overflow:hidden;background:var(--yellow);padding:20px 0;position:relative}
