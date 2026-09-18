@@ -37,11 +37,10 @@
 .award-card__logos{display:flex;align-items:center;gap:22px;margin-bottom:auto;padding-bottom:28px}
 .award-card__logos img:first-child{width:clamp(110px,12vw,160px);height:auto;
   filter:drop-shadow(0 10px 28px rgba(255,225,25,.3))}
-.award-card__logos img:last-child{width:64px;height:64px}
 .award-card .y{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--yellow);margin-bottom:10px}
 .award-card h3{font-size:clamp(26px,3vw,40px);font-weight:900;line-height:.98;letter-spacing:-.03em;
   text-transform:uppercase;color:#fff;margin-bottom:10px}
-.award-card p{margin:0;font-size:17px;color:rgba(255,255,255,.75)}
+.award-card p{margin:0;font-size:16px;line-height:1.45;color:rgba(255,255,255,.75);max-width:40ch}
 
 /* Лицензии — заметно, но не в центре */
 .trust__law{margin-top:22px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;
@@ -127,11 +126,13 @@
 .trust__merit span{display:block;margin-top:6px;font-size:14px;color:rgba(255,255,255,.7)}
 .problem .lead strong{color:var(--ink);font-weight:800}
 
-.trust__scale{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:42px}
+.trust__scale{display:grid;grid-template-columns:1fr;gap:18px;margin-bottom:42px;max-width:420px}
 .trust__scale-item{padding:22px 20px;border:1px solid rgba(255,255,255,.14);border-radius:12px;
   background:rgba(255,255,255,.03)}
+.trust__scale-item--solo{padding:28px 28px 30px}
 .trust__scale-item b{display:block;font-size:clamp(28px,3vw,40px);font-weight:900;
   letter-spacing:-.03em;line-height:1;color:var(--yellow);margin-bottom:8px}
+.trust__scale-item--solo b{font-size:clamp(40px,5vw,64px)}
 .trust__scale-item span{font-size:14px;color:rgba(255,255,255,.62);line-height:1.35}
 
 .trust__clients{margin:0 0 36px;padding:0;border:none}
