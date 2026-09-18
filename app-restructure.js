@@ -37,7 +37,7 @@ window.addEventListener('resize', () => {
   const items = [
     'img/safety/extinguisher.webp',
     'img/safety/cabinet.webp',
-    'img/safety/gloves.webp',
+    'img/safety/estop.webp',
     'img/safety/kit.webp',
     'img/safety/plan.webp'
   ];
