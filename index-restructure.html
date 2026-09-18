@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;700;900&display=swap&subset=cyrillic,latin" rel="stylesheet">
 <link rel="stylesheet" href="style-v2.css">
-<link rel="stylesheet" href="style-restructure.css?v=8">
+<link rel="stylesheet" href="style-restructure.css?v=9">
 </head>
 <body>
 
@@ -58,11 +58,13 @@
 <section class="section trust" id="trust">
   <div class="wrap">
     <div class="trust__intro">
-      <h2 class="h2">Нам доверяют<span class="script">И мы это заслужили</span></h2>
-      <div class="trust__merits">
-        <div class="trust__merit"><b>100+</b><span>человек в команде</span></div>
-        <div class="trust__merit"><b>Своя</b><span>платформа</span></div>
-        <div class="trust__merit"><b>Своя</b><span>комиссия</span></div>
+      <div class="trust__intro-main">
+        <h2 class="h2">Нам доверяют<span class="script">И мы это заслужили</span></h2>
+        <p class="trust__lead"><b>100+ человек в команде</b>, своя платформа, своя комиссия.</p>
+      </div>
+      <div class="trust__trained">
+        <div class="trust__trained-num"><span data-count="3000000" data-dur="2200">3&nbsp;000&nbsp;000</span>+</div>
+        <span class="trust__trained-label">человек обучили</span>
       </div>
     </div>
 
@@ -77,10 +79,6 @@
         <img src="img/clients/rzd.svg" alt="РЖД">
         <img src="img/clients/yugk.svg" alt="ЮГК">
       </div>
-    </div>
-
-    <div class="trust__scale">
-      <div class="trust__scale-item trust__scale-item--solo"><b>3 000 000+</b><span>человек обучили</span></div>
     </div>
 
     <div class="trust__body">
@@ -101,6 +99,12 @@
           <h3>Председатель жюри</h3>
           <p>Директор ГлавПро Василий Папин — председатель жюри Премии HR-бренд.</p>
           <a href="https://hrbrand.ru/Jury/" target="_blank" rel="noopener">Состав жюри</a>
+        </article>
+        <article class="trust__side-card">
+          <div class="y">2026</div>
+          <h3>Совет рейтинга работодателей</h3>
+          <p>Рядом с X5, VK и Альфа-Банком.</p>
+          <a href="https://rating.hh.ru/board" target="_blank" rel="noopener">Наблюдательный совет</a>
         </article>
       </aside>
     </div>
@@ -155,8 +159,7 @@
         </figure>
         <div class="solve__body">
           <h3>Комиссия и отчёты — наши</h3>
-          <p>Экзамен принимает наша аккредитованная комиссия. Протоколы и выгрузки в Минтруд делаем мы.
-            Штраф за ошибку в файле — это не про вас.</p>
+          <p>Экзамен принимает наша аккредитованная комиссия. Протоколы и выгрузки в Минтруд делаем мы.</p>
         </div>
       </article>
       <article class="solve__card">
@@ -178,8 +181,7 @@
         </figure>
         <div class="solve__body">
           <h3>Подписи — не бегая по цехам</h3>
-          <p>Протокол подписывают электронно прямо в кабинете, там же он и хранится столько, сколько нужно вам.
-            Больше никаких гор бумаг.</p>
+          <p>Протокол подписывают электронно прямо в кабинете, там же он и хранится столько, сколько нужно вам.</p>
         </div>
       </article>
       <article class="solve__card">
@@ -349,6 +351,6 @@
   </div>
 </footer>
 
-<script src="app-restructure.js?v=7"></script>
+<script src="app-restructure.js?v=9"></script>
 </body>
 </html>
