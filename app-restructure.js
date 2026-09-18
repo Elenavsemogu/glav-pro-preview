@@ -85,7 +85,8 @@ window.addEventListener('resize', () => {
     const b = items[(from + 1) % items.length];
     curr.src = a;
     next.src = b;
-    el.style.setProperty('--mask', 'url("' + b + '")');
+    el.style.setProperty('--mask-curr', 'url("' + a + '")');
+    el.style.setProperty('--mask-next', 'url("' + b + '")');
   }
 
   function tick(now) {
@@ -106,14 +107,16 @@ window.addEventListener('resize', () => {
     i = (i + 1) % items.length;
     const shown = items[i];
     const upcoming = items[(i + 1) % items.length];
+    const shownMask = el.style.getPropertyValue('--mask-next') || ('url("' + shown + '")');
 
     curr.src = shown;
+    el.style.setProperty('--mask-curr', shownMask);
 
     el.classList.add('tape-off');
     raf = requestAnimationFrame(() => {
       el.style.setProperty('--p', '0');
       next.src = upcoming;
-      el.style.setProperty('--mask', 'url("' + upcoming + '")');
+      el.style.setProperty('--mask-next', 'url("' + upcoming + '")');
 
       raf = requestAnimationFrame((t) => {
         el.classList.remove('tape-off');
