@@ -30,6 +30,30 @@ window.addEventListener('resize', () => {
   document.querySelectorAll('.shot--sweep, .shot--revealed').forEach(layoutTapeTip);
 });
 
+/* ---------- Счётчик: цифра растёт от 0 до значения при появлении ---------- */
+function countUp(el) {
+  const target = +el.dataset.count;
+  const dur = +el.dataset.dur || 1800;
+  const fmt = (n) => Math.round(n).toLocaleString('ru-RU').replace(/\u00a0|\s/g, '\u00a0');
+  const t0 = performance.now();
+  const tick = (now) => {
+    const p = Math.min(1, (now - t0) / dur);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = fmt(target * eased);
+    if (p < 1) requestAnimationFrame(tick); else el.textContent = fmt(target);
+  };
+  el.textContent = '0';
+  requestAnimationFrame(tick);
+}
+const counter = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (!e.isIntersecting) return;
+    countUp(e.target);
+    counter.unobserve(e.target);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach((el) => counter.observe(el));
+
 /* ---------- История: короткие вехи, без эпохи, с hh.ru ---------- */
 const events = [
   { i: 'img/history/2.jpg', y: 2012, t: 'Компания родилась', d: 'Шесть человек. Хотели делать чуть лучше рынка.' },

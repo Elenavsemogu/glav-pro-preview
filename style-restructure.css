@@ -21,6 +21,7 @@
 .price__label{margin:0;font-size:clamp(18px,1.8vw,24px);line-height:1.3;font-weight:700;color:var(--ink)}
 .price--fine{margin-top:0;border-top:0;padding:72px 0 64px;background:var(--paper)}
 .price--fine .price__num{font-size:clamp(84px,12vw,190px)}
+.price--fine .price__num [data-count]{font-variant-numeric:tabular-nums;min-width:5.3ch;display:inline-block;text-align:right}
 .price--fine .price__side{max-width:46ch}
 .price__facts{display:flex;gap:28px;flex-wrap:wrap;margin-top:22px}
 .price__facts b{display:block;font-size:26px;font-weight:900;letter-spacing:-.03em;line-height:1;color:var(--graphite)}
