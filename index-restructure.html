@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;700;900&display=swap&subset=cyrillic,latin" rel="stylesheet">
 <link rel="stylesheet" href="style-v2.css">
-<link rel="stylesheet" href="style-restructure.css?v=11">
+<link rel="stylesheet" href="style-restructure.css?v=12">
 </head>
 <body>
 
@@ -56,7 +56,30 @@
 
 <!-- ========== БЛОК 2. Масштаб и доверие ========== -->
 <section class="section trust" id="trust">
-  <div class="wrap">
+  <div class="trust__brands" aria-label="Клиенты">
+    <div class="trust__brands-track">
+      <div class="trust__brands-row">
+        <img src="img/clients/sibur.svg" alt="СИБУР">
+        <img src="img/clients/nornickel.svg" alt="Норникель">
+        <img src="img/clients/fixprice.svg" alt="Fix Price">
+        <img src="img/clients/rosneft.svg" alt="Роснефть">
+        <img src="img/clients/yug-rusi.svg" alt="Юг Руси">
+        <img src="img/clients/rzd.svg" alt="РЖД">
+        <img src="img/clients/yugk.svg" alt="ЮГК">
+      </div>
+      <div class="trust__brands-row" aria-hidden="true">
+        <img src="img/clients/sibur.svg" alt="">
+        <img src="img/clients/nornickel.svg" alt="">
+        <img src="img/clients/fixprice.svg" alt="">
+        <img src="img/clients/rosneft.svg" alt="">
+        <img src="img/clients/yug-rusi.svg" alt="">
+        <img src="img/clients/rzd.svg" alt="">
+        <img src="img/clients/yugk.svg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap trust__wrap">
     <div class="trust__intro">
       <div class="trust__intro-main">
         <h2 class="h2">Нам доверяют<span class="script">И мы это заслужили</span></h2>
@@ -65,17 +88,6 @@
       <div class="trust__trained">
         <div class="trust__trained-num"><span data-count="3000000" data-dur="2200">3&nbsp;000&nbsp;000</span>+</div>
         <span class="trust__trained-label">человек обучили</span>
-        <div class="trust__logo-stage">
-          <div class="trust__logo-swap" id="clientLogoSwap" aria-label="Клиенты">
-            <img class="is-active" src="img/clients/sibur.svg" alt="СИБУР">
-            <img src="img/clients/nornickel.svg" alt="Норникель">
-            <img src="img/clients/fixprice.svg" alt="Fix Price">
-            <img src="img/clients/rosneft.svg" alt="Роснефть">
-            <img src="img/clients/yug-rusi.svg" alt="Юг Руси">
-            <img src="img/clients/rzd.svg" alt="РЖД">
-            <img src="img/clients/yugk.svg" alt="ЮГК">
-          </div>
-        </div>
       </div>
     </div>
 
@@ -349,6 +361,6 @@
   </div>
 </footer>
 
-<script src="app-restructure.js?v=11"></script>
+<script src="app-restructure.js?v=12"></script>
 </body>
 </html>

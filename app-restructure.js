@@ -54,30 +54,6 @@ const counter = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 document.querySelectorAll('[data-count]').forEach((el) => counter.observe(el));
 
-/* ---------- Логотипы под 3 млн: один сменяется другим ---------- */
-(function () {
-  const root = document.getElementById('clientLogoSwap');
-  if (!root) return;
-  const imgs = [...root.querySelectorAll('img')];
-  if (imgs.length < 2) return;
-  let i = 0;
-  const hold = 1900;
-  const tick = () => {
-    imgs[i].classList.remove('is-active');
-    i = (i + 1) % imgs.length;
-    imgs[i].classList.add('is-active');
-  };
-  const start = () => { setInterval(tick, hold); };
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      if (!entries[0].isIntersecting) return;
-      start();
-      io.disconnect();
-    }, { threshold: 0.4 });
-    io.observe(root);
-  } else start();
-})();
-
 /* ---------- История: короткие вехи, без эпохи, с hh.ru ---------- */
 const events = [
   { i: 'img/history/2.jpg', y: 2012, t: 'Компания родилась', d: 'Шесть человек. Хотели делать чуть лучше рынка.' },
