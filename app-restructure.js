@@ -27,66 +27,119 @@ const sweeper = new IntersectionObserver((entries) => {
 }, { threshold: 0.35 });
 document.querySelectorAll('.shot--sweep').forEach((el) => sweeper.observe(el));
 window.addEventListener('resize', () => {
-  document.querySelectorAll('.shot--sweep, .shot--revealed, .hero__safety').forEach(layoutTapeTip);
+  document.querySelectorAll('.shot--sweep, .shot--revealed').forEach(layoutTapeTip);
 });
 
-/* ---------- Hero: лента открывает следующий предмет как завесу ---------- */
+/* ---------- Hero: было/стало — стабильный цикл без вспышек ---------- */
 (function () {
   const el = document.getElementById('heroSafety');
   if (!el) return;
   const items = [
-    'img/safety/extinguisher.png',
-    'img/safety/cabinet.png',
-    'img/safety/gloves.png',
-    'img/safety/kit.png',
-    'img/safety/plan.png'
+    'img/safety/extinguisher.webp',
+    'img/safety/cabinet.webp',
+    'img/safety/gloves.webp',
+    'img/safety/kit.webp',
+    'img/safety/plan.webp'
   ];
   const curr = el.querySelector('.hero__safety-curr');
   const next = el.querySelector('.hero__safety-next');
   let i = 0;
-  let busy = false;
+  let sweeping = false;
+  let tipLocked = false;
 
-  items.forEach((src) => { const im = new Image(); im.src = src; });
+  const absUrl = (src) => new URL(src, document.baseURI).href;
 
-  function prepare(from) {
-    const to = (from + 1) % items.length;
-    curr.src = items[from];
-    next.src = items[to];
-    el.style.setProperty('--mask-curr', `url('${items[from]}')`);
-    el.style.setProperty('--mask-next', `url('${items[to]}')`);
+  function loadOne(src) {
+    return new Promise((resolve) => {
+      const im = new Image();
+      im.decoding = 'async';
+      im.onload = () => {
+        if (im.decode) im.decode().then(() => resolve(src)).catch(() => resolve(src));
+        else resolve(src);
+      };
+      im.onerror = () => resolve(src);
+      im.src = absUrl(src);
+    });
   }
 
-  function playOnce() {
-    if (busy) return;
-    busy = true;
-    prepare(i);
+  function setPair(from) {
+    const to = (from + 1) % items.length;
+    const a = items[from];
+    const b = items[to];
+    curr.src = a;
+    next.src = b;
+    el.style.setProperty('--mask-curr', `url("${absUrl(a)}")`);
+    el.style.setProperty('--mask-next', `url("${absUrl(b)}")`);
+  }
+
+  function layoutTipSafe() {
+    if (tipLocked) return;
     layoutTapeTip(el);
+  }
+
+  function startSweep() {
+    if (sweeping) return;
+    if (document.hidden) return;
+    sweeping = true;
+    tipLocked = false;
+    layoutTipSafe();
+    tipLocked = true;
     el.classList.remove('sweeping', 'shot--revealed');
     el.style.setProperty('--p', '0');
+    if (el.getAnimations) el.getAnimations().forEach((a) => a.cancel());
     void el.offsetWidth;
-    el.classList.add('sweeping');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (!sweeping) return;
+        el.classList.add('sweeping');
+      });
+    });
   }
 
   el.addEventListener('animationend', (e) => {
     if (e.target !== el) return;
+    if (e.animationName && e.animationName !== 'tape-rtl') return;
+    if (!sweeping) return;
+
+    /* Сначала --p:0 (видно только curr), потом меняем пару — иначе вспышка next */
     el.classList.remove('sweeping');
-    i = (i + 1) % items.length;
-    curr.src = items[i];
+    tipLocked = false;
     el.style.setProperty('--p', '0');
-    busy = false;
-    playOnce();
+    i = (i + 1) % items.length;
+    setPair(i);
+    void el.offsetWidth;
+    sweeping = false;
+
+    requestAnimationFrame(() => startSweep());
   });
 
-  const start = () => playOnce();
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      el.classList.remove('sweeping');
+      sweeping = false;
+      tipLocked = false;
+      el.style.setProperty('--p', '0');
+    } else if (el.getBoundingClientRect().top < window.innerHeight) {
+      startSweep();
+    }
+  });
 
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      if (!entries[0].isIntersecting) return;
-      start();
-      io.disconnect();
-    }, { threshold: 0.25 });
-    io.observe(el);
-  } else start();
+  window.addEventListener('resize', () => {
+    if (!el.classList.contains('sweeping')) layoutTapeTip(el);
+  });
+
+  Promise.all(items.map(loadOne)).then(() => {
+    setPair(0);
+    el.style.setProperty('--p', '0');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        if (!entries[0].isIntersecting) return;
+        startSweep();
+        io.disconnect();
+      }, { threshold: 0.2 });
+      io.observe(el);
+    } else startSweep();
+  });
 })();
 
 /* ---------- Одна скорость у бегущих строк (бренды = направления) ---------- */

@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;700;900&display=swap&subset=cyrillic,latin" rel="stylesheet">
 <link rel="stylesheet" href="style-v2.css">
-<link rel="stylesheet" href="style-restructure.css?v=18">
+<link rel="stylesheet" href="style-restructure.css?v=19">
 </head>
 <body>
 
@@ -46,9 +46,10 @@
         <div class="hero__fact"><b>14 лет</b><span>с 2012 года</span></div>
       </div>
     </div>
-    <figure class="hero__helmet hero__safety" id="heroSafety">
-      <img class="hero__helmet-img hero__safety-curr" src="img/safety/extinguisher.png" alt="">
-      <img class="hero__helmet-img hero__safety-next" src="img/safety/cabinet.png" alt="" aria-hidden="true">
+    <figure class="hero__helmet hero__safety" id="heroSafety"
+      style="--mask-curr:url('img/safety/extinguisher.webp');--mask-next:url('img/safety/cabinet.webp')">
+      <img class="hero__helmet-img hero__safety-curr" src="img/safety/extinguisher.webp" alt="" width="400" height="400" decoding="async">
+      <img class="hero__helmet-img hero__safety-next" src="img/safety/cabinet.webp" alt="" width="400" height="400" decoding="async" aria-hidden="true">
       <span class="hero__tape-clip hero__tape-clip--curr" aria-hidden="true"><span class="hero__tape"></span></span>
       <span class="hero__tape-clip hero__tape-clip--next" aria-hidden="true"><span class="hero__tape"></span></span>
     </figure>
@@ -362,6 +363,6 @@
   </div>
 </footer>
 
-<script src="app-restructure.js?v=18"></script>
+<script src="app-restructure.js?v=19"></script>
 </body>
 </html>

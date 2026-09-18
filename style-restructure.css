@@ -104,30 +104,34 @@
 
 /* Hero: было/стало — разрез по последней полосе; лента маской ровно по видимому предмету */
 .hero__safety{max-width:480px;aspect-ratio:1;position:relative;overflow:hidden;display:block;
-  --mask-curr:url('img/safety/extinguisher.png');
-  --mask-next:url('img/safety/cabinet.png');
+  --tape-dur:1.35s;
+  --mask-curr:url('img/safety/extinguisher.webp');
+  --mask-next:url('img/safety/cabinet.webp');
   --split-top:calc(100% - var(--p) * (100% + var(--rw)) + var(--rw) + var(--tip));
-  --split-bot:calc(100% - var(--p) * (100% + var(--rw)) + var(--rw))}
+  --split-bot:calc(100% - var(--p) * (100% + var(--rw)) + var(--rw));
+  contain:layout style;
+  transform:translateZ(0)}
 .hero__safety .hero__helmet-img{
   position:absolute;inset:0;width:100%;height:100%;
-  object-fit:contain;object-position:center;filter:none;display:block}
+  object-fit:contain;object-position:center;filter:none;display:block;
+  pointer-events:none}
 .hero__safety .hero__safety-curr{z-index:1;
   clip-path:polygon(0% 0%,var(--split-top) 0%,var(--split-bot) 100%,0% 100%)}
 .hero__safety .hero__safety-next{z-index:2;
   clip-path:polygon(var(--split-top) 0%,100% 0%,100% 100%,var(--split-bot) 100%)}
-/* Две ленты: каждая маской только своего предмета и только на своей половине */
 .hero__safety .hero__tape-clip{
   -webkit-mask-size:contain;mask-size:contain;
   -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
   -webkit-mask-position:center;mask-position:center;
   -webkit-mask-source-type:alpha;mask-mode:alpha;
-  opacity:1;visibility:visible}
+  opacity:1;visibility:visible;will-change:auto}
 .hero__safety .hero__tape-clip--curr{
   -webkit-mask-image:var(--mask-curr);mask-image:var(--mask-curr);
   clip-path:polygon(0% 0%,var(--split-top) 0%,var(--split-bot) 100%,0% 100%)}
 .hero__safety .hero__tape-clip--next{
   -webkit-mask-image:var(--mask-next);mask-image:var(--mask-next);
   clip-path:polygon(var(--split-top) 0%,100% 0%,100% 100%,var(--split-bot) 100%)}
+.hero__safety.sweeping{animation:tape-rtl var(--tape-dur) linear forwards}
 .hero__safety.shot--revealed .hero__safety-curr,
 .hero__safety.shot--revealed .hero__tape-clip--curr{clip-path:inset(0 100% 0 0)}
 .hero__safety.shot--revealed .hero__safety-next{clip-path:none}
@@ -138,6 +142,7 @@
   .hero__safety .hero__tape-clip--curr{clip-path:inset(0 100% 0 0)}
   .hero__safety .hero__safety-next{clip-path:none}
   .hero__safety .hero__tape-clip{opacity:0;visibility:hidden}
+  .hero__safety.sweeping{animation:none}
 }
 
 /* Бегущая полоса направлений — перед CTA */
