@@ -27,8 +27,84 @@ const sweeper = new IntersectionObserver((entries) => {
 }, { threshold: 0.35 });
 document.querySelectorAll('.shot--sweep').forEach((el) => sweeper.observe(el));
 window.addEventListener('resize', () => {
-  document.querySelectorAll('.shot--sweep, .shot--revealed').forEach(layoutTapeTip);
+  document.querySelectorAll('.shot--sweep, .shot--revealed, .hero__safety').forEach(layoutTapeTip);
 });
+
+/* ---------- Hero: лента открывает следующий предмет как завесу ---------- */
+(function () {
+  const el = document.getElementById('heroSafety');
+  if (!el) return;
+  const items = [
+    'img/safety/extinguisher.png',
+    'img/safety/cabinet.png',
+    'img/safety/gloves.png',
+    'img/safety/kit.png',
+    'img/safety/plan.png'
+  ];
+  const curr = el.querySelector('.hero__safety-curr');
+  const next = el.querySelector('.hero__safety-next');
+  let i = 0;
+  let busy = false;
+
+  items.forEach((src) => { const im = new Image(); im.src = src; });
+
+  function prepare(from) {
+    const to = (from + 1) % items.length;
+    curr.src = items[from];
+    next.src = items[to];
+    el.style.setProperty('--mask-curr', `url('${items[from]}')`);
+    el.style.setProperty('--mask-next', `url('${items[to]}')`);
+  }
+
+  function playOnce() {
+    if (busy) return;
+    busy = true;
+    prepare(i);
+    layoutTapeTip(el);
+    el.classList.remove('sweeping', 'shot--revealed');
+    el.style.setProperty('--p', '0');
+    void el.offsetWidth;
+    el.classList.add('sweeping');
+  }
+
+  el.addEventListener('animationend', (e) => {
+    if (e.target !== el) return;
+    el.classList.remove('sweeping');
+    i = (i + 1) % items.length;
+    curr.src = items[i];
+    el.style.setProperty('--p', '0');
+    busy = false;
+    playOnce();
+  });
+
+  const start = () => playOnce();
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      start();
+      io.disconnect();
+    }, { threshold: 0.25 });
+    io.observe(el);
+  } else start();
+})();
+
+/* ---------- Одна скорость у бегущих строк (бренды = направления) ---------- */
+(function () {
+  const SPEED = 42; /* px/s — как у dirs при ~48s */
+  function sync(track) {
+    const row = track && track.children[0];
+    if (!row) return;
+    const w = row.getBoundingClientRect().width;
+    if (w < 1) return;
+    track.style.animationDuration = `${Math.max(12, w / SPEED)}s`;
+  }
+  function syncAll() {
+    document.querySelectorAll('.dirs-marquee__track, .trust__brands-track').forEach(sync);
+  }
+  syncAll();
+  window.addEventListener('resize', syncAll);
+})();
 
 /* ---------- Счётчик: цифра растёт от 0 до значения при появлении ---------- */
 function countUp(el) {
