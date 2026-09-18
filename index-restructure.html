@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;700;900&display=swap&subset=cyrillic,latin" rel="stylesheet">
 <link rel="stylesheet" href="style-v2.css">
-<link rel="stylesheet" href="style-restructure.css?v=6">
+<link rel="stylesheet" href="style-restructure.css?v=7">
 </head>
 <body>
 
@@ -35,7 +35,7 @@
   <div class="wrap">
     <div>
       <h1 class="h1">Обучаем<span class="script">безопасности</span></h1>
-      <p class="lead hero__sub">250+ курсов по охране труда, пожарной и промышленной безопасности — в одной подписке.
+      <p class="lead hero__sub">250+ курсов по охране труда, пожарной и промышленной безопасности безлимитно — в одной подписке.
         Онлайн, по всей России. С документами, которые пройдут любые проверки.</p>
       <div class="hero__cta">
         <a href="#problem" class="btn btn--ink btn--hero-down">Как это работает <span class="btn__arrow" aria-hidden="true">↘</span></a>
@@ -52,16 +52,6 @@
       <span class="hero__tape-clip" aria-hidden="true"><span class="hero__tape"></span></span>
     </figure>
   </div>
-  <div class="price">
-    <div class="wrap price__wrap">
-      <div class="price__num">116<span class="price__cur">₽</span></div>
-      <div class="price__side">
-        <div class="kicker">Одно обучение</div>
-        <p class="price__label">Во столько обошлось одно обучение нашим клиентам в 2025 году</p>
-      </div>
-    </div>
-    <span class="price__tape" aria-hidden="true"></span>
-  </div>
 </section>
 
 <!-- ========== БЛОК 2. Масштаб и доверие ========== -->
@@ -69,7 +59,11 @@
   <div class="wrap">
     <div class="trust__intro">
       <h2 class="h2">Нам доверяют<span class="script">И мы это заслужили</span></h2>
-      <p class="lead">Сто+ человек в команде, своя платформа, своя комиссия.</p>
+      <div class="trust__merits">
+        <div class="trust__merit"><b>100+</b><span>человек в команде</span></div>
+        <div class="trust__merit"><b>Своя</b><span>платформа</span></div>
+        <div class="trust__merit"><b>Своя</b><span>комиссия</span></div>
+      </div>
     </div>
 
     <div class="trust__clients">
@@ -80,12 +74,14 @@
         <img src="img/clients/fixprice.svg" alt="Fix Price">
         <img src="img/clients/rosneft.svg" alt="Роснефть">
         <img src="img/clients/yug-rusi.svg" alt="Юг Руси">
+        <img src="img/clients/rzd.svg" alt="РЖД">
+        <img src="img/clients/yugk.svg" alt="ЮГК">
       </div>
     </div>
 
     <div class="trust__scale">
-      <div class="trust__scale-item"><b>100 000+</b><span>компаний</span></div>
-      <div class="trust__scale-item"><b>700 000+</b><span>обучили сотрудников</span></div>
+      <div class="trust__scale-item"><b>100 000+</b><span>компаний за 14 лет</span></div>
+      <div class="trust__scale-item"><b>3 000 000+</b><span>обучили сотрудников</span></div>
       <div class="trust__scale-item"><b>450 000</b><span>заявок обработали</span></div>
     </div>
 
@@ -105,14 +101,8 @@
         <article class="trust__side-card">
           <div class="y">2025</div>
           <h3>Жюри премии</h3>
-          <p>Директор ГлавПро Василий Папин — член жюри Премии HR-бренд.</p>
+          <p>Директор ГлавПро Василий Папин — председатель жюри Премии HR-бренд.</p>
           <a href="https://hrbrand.ru/Jury/" target="_blank" rel="noopener">Состав жюри</a>
-        </article>
-        <article class="trust__side-card">
-          <div class="y">2026</div>
-          <h3>Совет рейтинга работодателей</h3>
-          <p>Рядом с X5, VK и Альфа-Банком.</p>
-          <a href="https://rating.hh.ru/board" target="_blank" rel="noopener">Наблюдательный совет</a>
         </article>
       </aside>
     </div>
@@ -138,32 +128,14 @@
   </div>
 </section>
 
-<!-- ========== Цена ошибки ========== -->
-<section class="price price--fine" id="fine">
-  <div class="wrap price__wrap">
-    <div class="price__num"><span data-count="94000" data-dur="2000">94&nbsp;000</span><span class="price__cur">₽</span></div>
-    <div class="price__side">
-      <div class="kicker">Средний штраф на одну проверку в 2025 году</div>
-      <p class="price__label">Каждое третье нарушение, которое находит инспекция, — по охране труда. Чаще всего — за обучение.</p>
-      <div class="price__facts">
-        <div><b>13 445</b><span>нарушений по охране труда</span></div>
-        <div><b>5 779</b><span>из них — обучение и инструктаж</span></div>
-        <div><b>28 000+</b><span>работников отстранили от работы</span></div>
-      </div>
-      <p class="price__src">По отчёту Роструда за 2025 год</p>
-    </div>
-  </div>
-  <span class="price__tape" aria-hidden="true"></span>
-</section>
-
 <!-- ========== БЛОК 3. Сложно → просто ========== -->
 <section class="section problem" id="problem">
   <div class="wrap">
     <div class="section-head">
-      <h2 class="h2">Соблюсти закон сложно.<span class="script">а с нами — просто</span></h2>
-      <p class="lead">Практику теперь нельзя вести дистанционно. Нужен инструктор с дипломом, оборудование,
-        комиссия, протоколы, выгрузки в Минтруд и ФИС ФРДО. Правила при этом продолжают меняться,
-        штрафы — расти. Один специалист по охране труда может не справиться. Мы и не просим.</p>
+      <h2 class="h2">Соблюсти закон сложно<span class="script">а с нами — просто</span></h2>
+      <p class="lead"><strong>Практику теперь нельзя проводить дистанционно.</strong> Нужен инструктор с дипломом, оборудование,
+        комиссия, протоколы, выгрузки в Минтруд. Правила при этом продолжают меняться,
+        штрафы — расти. Один специалист по охране труда <strong>может не справиться</strong>.</p>
     </div>
 
     <div class="solve">
@@ -174,8 +146,8 @@
           <span class="solve__tape-clip" aria-hidden="true"><span class="solve__tape"></span></span>
         </figure>
         <div class="solve__body">
-          <h3>Практика — на нас</h3>
-          <p>Инструкторы с дипломами уже в подписке. Свой преподаватель и манекены вам не понадобятся.</p>
+          <h3>Подтверждения практики</h3>
+          <p>Автоматическое формирование артефактов очной практики с подтверждением инструктора.</p>
         </div>
       </article>
       <article class="solve__card">
@@ -186,7 +158,7 @@
         </figure>
         <div class="solve__body">
           <h3>Комиссия и отчёты — наши</h3>
-          <p>Экзамен принимает наша аккредитованная комиссия. Протоколы и выгрузки в Минтруд и ФИС ФРДО делаем мы.
+          <p>Экзамен принимает наша аккредитованная комиссия. Протоколы и выгрузки в Минтруд делаем мы.
             Штраф за ошибку в файле — это не про вас.</p>
         </div>
       </article>
@@ -198,8 +170,7 @@
         </figure>
         <div class="solve__body">
           <h3>Что просрочено — видно сразу</h3>
-          <p>Сдал, не сдал, удостоверение кончается через месяц — всё в личном кабинете.
-            Таблица в Excel больше не нужна.</p>
+          <p>Сдал — не сдал, действие удостоверения заканчивается через месяц, удобная выгрузка отчётов с нужными настройками — всё в личном кабинете.</p>
         </div>
       </article>
       <article class="solve__card">
@@ -223,17 +194,17 @@
         <div class="solve__body">
           <h3>Один договор вместо пяти</h3>
           <p>Охрана труда, промбезопасность, ДПО — 250+ курсов за фиксированную цену.
-            Диплом за 20 000 докупать не придётся.</p>
+            Отдельные программы докупать не придётся.</p>
         </div>
       </article>
       <a href="#cta" class="solve__card solve__out">
-          <h3>Большой завод или пять человек — одна подписка</h3>
-          <p>Одна платформа, один кабинет, одни и те же люди на связи.</p>
+          <h3>Большой завод или пять человек</h3>
+          <p>Выгодная подписка на безлимитное обучение в зависимости от штата.</p>
           <span class="btn btn--ink">Проверить, что у нас не закрыто</span>
       </a>
     </div>
 
-    <p class="solve__extra-line">Новые сотрудники подтягиваются из 1С сами · Шаблоны приказов лежат в базе знаний · Интересные курсы люди досматривают, а не пролистывают.</p>
+    <p class="solve__extra-line">Данные о сотрудниках можно синхронизировать с 1С · Шаблоны приказов — в базе знаний · Курсы проходят до конца, а не для галочки.</p>
   </div>
 </section>
 
@@ -381,6 +352,6 @@
   </div>
 </footer>
 
-<script src="app-restructure.js?v=6"></script>
+<script src="app-restructure.js?v=7"></script>
 </body>
 </html>
