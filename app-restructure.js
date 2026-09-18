@@ -44,12 +44,13 @@ window.addEventListener('resize', () => {
   ];
   const curr = el.querySelector('.hero__safety-curr');
   const next = el.querySelector('.hero__safety-next');
-  const DUR = 1400;
+  const DUR = 1500;
   let i = 0;
   let raf = 0;
   let t0 = 0;
   let running = false;
   let ready = false;
+  let advancing = false;
 
   const abs = (src) => new URL(src, document.baseURI).href;
 
@@ -65,32 +66,51 @@ window.addEventListener('resize', () => {
   function setPair(from) {
     const a = items[from];
     const b = items[(from + 1) % items.length];
-    if (curr.getAttribute('src') !== a) curr.src = a;
-    if (next.getAttribute('src') !== b) next.src = b;
-    /* относительные url — как у img, без CORS-глюков маски на Pages */
+    curr.src = a;
+    next.src = b;
     el.style.setProperty('--mask-curr', 'url("' + a + '")');
     el.style.setProperty('--mask-next', 'url("' + b + '")');
   }
 
+  /* Продвижение без вспышки: curr ← то что уже на next, потом только новый next */
+  function promote() {
+    i = (i + 1) % items.length;
+    const a = items[i];
+    const b = items[(i + 1) % items.length];
+    const nextMask = el.style.getPropertyValue('--mask-next') || ('url("' + a + '")');
+
+    el.style.setProperty('--p', '0');
+    curr.src = a;
+    el.style.setProperty('--mask-curr', nextMask);
+    next.src = b;
+    el.style.setProperty('--mask-next', 'url("' + b + '")');
+  }
+
   function tick(now) {
-    if (!running) return;
+    if (!running || advancing) return;
     const p = Math.min(1, (now - t0) / DUR);
-    el.style.setProperty('--p', p.toFixed(4));
+    el.style.setProperty('--p', String(p));
     if (p < 1) {
       raf = requestAnimationFrame(tick);
       return;
     }
-    i = (i + 1) % items.length;
-    el.style.setProperty('--p', '0');
-    setPair(i);
-    layoutTapeTip(el);
-    t0 = performance.now();
-    raf = requestAnimationFrame(tick);
+
+    /* конец проезда: зафиксировать кадр, сменить пару, через 2 кадра снова ехать */
+    advancing = true;
+    promote();
+    raf = requestAnimationFrame(() => {
+      raf = requestAnimationFrame((t) => {
+        advancing = false;
+        t0 = t;
+        raf = requestAnimationFrame(tick);
+      });
+    });
   }
 
   function start() {
     if (running || !ready || document.hidden) return;
     running = true;
+    advancing = false;
     el.classList.remove('sweeping', 'shot--revealed');
     layoutTapeTip(el);
     setPair(i);
@@ -101,6 +121,7 @@ window.addEventListener('resize', () => {
 
   function stop() {
     running = false;
+    advancing = false;
     if (raf) cancelAnimationFrame(raf);
     raf = 0;
   }
@@ -112,8 +133,11 @@ window.addEventListener('resize', () => {
     } else if (ready) start();
   });
 
+  let tipTimer = 0;
   window.addEventListener('resize', () => {
-    if (ready) layoutTapeTip(el);
+    if (!ready) return;
+    clearTimeout(tipTimer);
+    tipTimer = setTimeout(() => layoutTapeTip(el), 120);
   });
 
   Promise.all([load(items[0]), load(items[1])]).then(() => {
