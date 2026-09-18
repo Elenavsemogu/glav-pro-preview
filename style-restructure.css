@@ -1,0 +1,152 @@
+/* Дополнения к style-v2 для структуры «4 блока + история» */
+
+.hero__sub b{font-weight:800;color:var(--ink)}
+
+/* Hero: одна крупная кнопка со стрелкой вниз */
+.btn--hero-down{
+  height:64px;padding:0 32px;font-size:18px;font-weight:800;gap:12px;
+  border-width:2px}
+.btn--hero-down .btn__arrow{font-size:1.15em;line-height:1;display:inline-block;
+  transform:translateY(1px)}
+.hero__cta{margin-top:32px}
+
+/* 116 ₽ — ударная цифра под hero, на бумаге, с жёлтой лентой */
+.price{position:relative;margin-top:64px;padding:48px 0 56px;border-top:1px solid var(--line);overflow:hidden}
+.price__wrap{display:grid;grid-template-columns:auto 1fr;gap:20px 48px;align-items:end}
+.price__num{font-size:clamp(120px,18vw,260px);font-weight:900;letter-spacing:-.07em;line-height:.8;
+  color:var(--graphite);display:flex;align-items:baseline;gap:.05em}
+.price__cur{font-size:.42em;color:var(--yellow);-webkit-text-stroke:2px var(--graphite);
+  letter-spacing:0;transform:translateY(-.15em)}
+.price__side{padding-bottom:.6em;max-width:30ch}
+.price__side .kicker{margin-bottom:10px}
+.price__label{margin:0;font-size:clamp(18px,1.8vw,24px);line-height:1.3;font-weight:700;color:var(--ink)}
+.price__tape{position:absolute;left:-10%;right:-10%;bottom:0;height:14px;
+  background:repeating-linear-gradient(var(--tape-angle),var(--yellow) 0 var(--bar),transparent var(--bar) var(--period))}
+
+.trust__clients-row img[src*="nornickel"]{filter:brightness(0) invert(1)}
+
+/* Награда HH — главная карточка блока доверия */
+.award-card{position:relative;padding:34px 34px 36px;border-radius:16px;
+  background:linear-gradient(135deg,rgba(255,225,25,.16),rgba(255,225,25,.05));
+  border:1.5px solid rgba(255,225,25,.55);display:flex;flex-direction:column;justify-content:flex-end;min-height:320px}
+.award-card__logos{display:flex;align-items:center;gap:22px;margin-bottom:auto;padding-bottom:28px}
+.award-card__logos img:first-child{width:clamp(110px,12vw,160px);height:auto;
+  filter:drop-shadow(0 10px 28px rgba(255,225,25,.3))}
+.award-card__logos img:last-child{width:64px;height:64px}
+.award-card .y{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--yellow);margin-bottom:10px}
+.award-card h3{font-size:clamp(26px,3vw,40px);font-weight:900;line-height:.98;letter-spacing:-.03em;
+  text-transform:uppercase;color:#fff;margin-bottom:10px}
+.award-card p{margin:0;font-size:17px;color:rgba(255,255,255,.75)}
+
+/* Лицензии — заметно, но не в центре */
+.trust__law{margin-top:22px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center;
+  padding:22px 26px;border-radius:14px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03)}
+.trust__law-text .kicker{color:rgba(255,255,255,.45);margin-bottom:8px}
+.trust__law-text p{margin:0;font-size:15px;line-height:1.5;color:rgba(255,255,255,.68);max-width:60ch}
+.trust__docs--sm{display:grid;grid-template-columns:repeat(3,72px);gap:8px}
+.trust__docs--sm .shot{aspect-ratio:3/4;border-radius:6px}
+
+/* Решения — фото-карточки как на сайте, 6-я жёлтая */
+.solve{grid-template-columns:repeat(3,1fr)}
+.solve .promise{aspect-ratio:1/1.05}
+.solve .promise__body{padding:26px}
+.solve .promise__body .h3{font-size:20px}
+.solve .promise__body p{font-size:14px;line-height:1.45}
+.promise--out{background:var(--yellow);display:flex;align-items:flex-end;text-decoration:none;color:var(--ink)}
+.promise--out__body{padding:28px}
+.promise--out h3{font-size:clamp(22px,2.2vw,30px);font-weight:900;line-height:.98;letter-spacing:-.03em;
+  text-transform:uppercase;margin-bottom:12px}
+.promise--out p{font-size:15px;line-height:1.45;margin-bottom:22px}
+.promise--out .btn{height:48px;padding:0 20px;font-size:14px}
+.promise--out:hover .btn{background:var(--ink);color:var(--yellow)}
+
+/* Бегущая строка направлений — перед CTA, в стиле жёлтой ленты */
+.dirs-marquee{overflow:hidden;background:var(--yellow);padding:20px 0;position:relative}
+.dirs-marquee::before,.dirs-marquee::after{content:'';position:absolute;left:0;right:0;height:6px;
+  background:repeating-linear-gradient(90deg,var(--graphite) 0 28px,transparent 28px 44px)}
+.dirs-marquee::before{top:0}.dirs-marquee::after{bottom:0}
+.dirs-marquee__track{display:flex;width:max-content;animation:dirs-rtl 48s linear infinite}
+.dirs-marquee__row{display:flex;align-items:center;flex:none}
+.dirs-marquee__row span{font-size:16px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--graphite);white-space:nowrap;padding:0 30px;position:relative}
+.dirs-marquee__row span::after{content:'';position:absolute;right:-4px;top:50%;width:8px;height:8px;
+  border-radius:50%;background:var(--graphite);transform:translateY(-50%)}
+@keyframes dirs-rtl{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.dirs-marquee__track{animation:none}}
+
+/* ---------- Блок 2: масштаб и доверие ---------- */
+.trust{background:var(--graphite);color:#fff}
+.trust .h2{color:#fff}
+.trust .script{color:var(--yellow)}
+.trust .lead{color:rgba(255,255,255,.72)}
+.trust__intro{max-width:52ch;margin-bottom:40px}
+.trust__intro .lead{margin-top:18px}
+
+.trust__scale{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:42px}
+.trust__scale-item{padding:22px 20px;border:1px solid rgba(255,255,255,.14);border-radius:12px;
+  background:rgba(255,255,255,.03)}
+.trust__scale-item b{display:block;font-size:clamp(28px,3vw,40px);font-weight:900;
+  letter-spacing:-.03em;line-height:1;color:var(--yellow);margin-bottom:8px}
+.trust__scale-item span{font-size:14px;color:rgba(255,255,255,.62);line-height:1.35}
+
+.trust__clients{margin:0 0 36px;padding:0;border:none}
+.trust__clients .kicker{color:rgba(255,255,255,.45);margin-bottom:22px}
+.trust__scale{margin-bottom:42px}
+.trust__clients-row{display:flex;align-items:center;justify-content:space-between;gap:36px;flex-wrap:wrap}
+.trust__clients-row img{height:40px;width:auto;max-width:160px;object-fit:contain;opacity:.95;
+  filter:none}
+.trust__clients-row img:hover{opacity:1}
+
+.trust__body{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;align-items:stretch}
+.trust__side-card{
+  padding:26px 26px 28px;border:1px solid rgba(255,255,255,.14);border-radius:14px;
+  background:rgba(255,255,255,.03)}
+
+.trust__side{display:grid;gap:14px}
+.trust__side > .kicker{color:rgba(255,255,255,.45)}
+.trust__side-card .y{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--yellow);margin-bottom:10px}
+.trust__side-card h3{font-size:17px;font-weight:900;line-height:1.25;margin-bottom:8px;color:#fff}
+.trust__side-card p{margin:0 0 12px;font-size:14px;line-height:1.45;color:rgba(255,255,255,.68)}
+.trust__side-card a{font-size:13px;color:#fff;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:1px}
+.trust__side-card a:hover{color:var(--yellow);border-color:var(--yellow)}
+
+/* ---------- Блок 3: сложно → просто ---------- */
+.problem .section-head{margin-bottom:36px}
+.problem .lead{color:#3c3a37}
+.solve__extra-line{margin:22px 0 0;padding:18px 22px;font-size:15px;line-height:1.55;color:#3c3a37;
+  background:#fff;border:1px dashed var(--line);border-radius:12px}
+
+/* ---------- Блок 4: CTA только телефон ---------- */
+.cta--audit{background:var(--graphite);color:#fff}
+.cta--audit .h2{color:#fff}
+.cta--audit .lead,.cta--audit p{color:rgba(255,255,255,.72)}
+.cta--audit .script{color:var(--yellow)}
+.cta--audit .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.cta--audit .form{display:grid;gap:12px}
+.cta--audit .form input[type="tel"]{
+  height:56px;padding:0 18px;border-radius:10px;border:1.5px solid rgba(255,255,255,.22);
+  background:rgba(255,255,255,.06);color:#fff;font:inherit;font-size:16px}
+.cta--audit .form input::placeholder{color:rgba(255,255,255,.45)}
+.cta--audit .form input:focus{outline:none;border-color:var(--yellow)}
+.cta--audit .form label{display:flex;gap:10px;font-size:13px;line-height:1.45;color:rgba(255,255,255,.55)}
+.cta--audit .form label a{text-decoration:underline;color:rgba(255,255,255,.8)}
+.cta__points{margin:22px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.cta__points li{position:relative;padding-left:18px;font-size:15px;line-height:1.45;color:rgba(255,255,255,.78)}
+.cta__points li::before{content:'';position:absolute;left:0;top:.55em;width:8px;height:8px;
+  border-radius:50%;background:var(--yellow)}
+
+@media(max-width:980px){
+  .trust__scale{grid-template-columns:repeat(3,1fr)}
+  .trust__body,.solve,.trust__law,.cta--audit .wrap{grid-template-columns:1fr}
+  .solve{grid-template-columns:repeat(2,1fr)}
+  .price__wrap{grid-template-columns:1fr;gap:12px}
+  .award-card{min-height:260px}
+}
+@media(max-width:680px){
+  .trust__scale{grid-template-columns:1fr;gap:10px}
+  .trust__clients-row{gap:22px}
+  .trust__clients-row img{height:32px;max-width:130px}
+  .solve{grid-template-columns:1fr}
+  .btn--hero-down{height:56px;padding:0 22px;font-size:16px;width:100%}
+}
